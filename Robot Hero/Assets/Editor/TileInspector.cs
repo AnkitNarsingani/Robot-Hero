@@ -6,16 +6,16 @@ public class TileInspector : Editor
 {
     string[] options;
     int index = 0;
-    TileSelector tileSelector;
+    [SerializeField]TileSelector tileSelector;
 
     void Init()
     {
         tileSelector = (TileSelector)target;
-        options = new string[tileSelector.tileList.tilesList.Count];
+        options = new string[tileSelector.tileListScriptableObject.tilesList.Count];
 
-        for (int i = 0; i < tileSelector.tileList.tilesList.Count; i++)
+        for (int i = 0; i < tileSelector.tileListScriptableObject.tilesList.Count; i++)
         {
-            options[i] = tileSelector.tileList.tilesList[i].ToString();
+            options[i] = tileSelector.tileListScriptableObject.tilesList[i].ToString();
         }
     }
 
@@ -29,13 +29,16 @@ public class TileInspector : Editor
 
     void InstantiateBlock()
     {
-        if (tileSelector.tileList.tilesList[index].tilePrefab != null)
+        if (tileSelector.tileListScriptableObject.tilesList[index].tilePrefab != null)
         {
-            GameObject g = Instantiate(tileSelector.tileList.tilesList[index].tilePrefab, tileSelector.transform.position, Quaternion.identity);
-            g.transform.localScale = tileSelector.transform.localScale;
+            GameObject newTile = Instantiate(tileSelector.tileListScriptableObject.tilesList[index].tilePrefab, tileSelector.transform.position, Quaternion.identity);
+            newTile.transform.localScale = tileSelector.transform.localScale;
+            GridSystem grid = FindObjectOfType<GridSystem>();
+            newTile.transform.parent = grid.transform;
+            grid.tileGameObjects[(int)tileSelector.positionOnGrid.x, (int)tileSelector.positionOnGrid.y] = newTile;
             DestroyImmediate(tileSelector.gameObject);
         } 
         else
-            Debug.Log("Prefab not assigned to: " + tileSelector.tileList.tilesList[index].name);
+            Debug.Log("Prefab not assigned to: " + tileSelector.tileListScriptableObject.tilesList[index].name);
     }
 }

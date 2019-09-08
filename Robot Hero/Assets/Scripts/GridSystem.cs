@@ -1,31 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class GridSystem : MonoBehaviour
 {
     [SerializeField] TileList tileList;
     [SerializeField] int tileSetSize = 10;
-    [SerializeField] float cellSize = 1; 
+    [SerializeField] float cellSize = 1;
+    [SerializeField] bool shouldAutoAdjustValueOfCell = false;
     [SerializeField] Vector3 cellGameObjectSize = new Vector3(0.7f, 0.1f, 0.7f);
 
+    public GameObject[,] tileGameObjects;
     float valueCheckForSize;
-
-
-	void Start ()
-    {
-        valueCheckForSize = tileSetSize - cellSize;
-	}
-	
-	void Update ()
-    {
-		
-	}
 
     private void OnDrawGizmos()
     {
-        if (tileSetSize - cellSize != valueCheckForSize)
+        float diffrenceToCheck = tileSetSize - cellSize;
+        if (diffrenceToCheck != valueCheckForSize)
         {
+            if (shouldAutoAdjustValueOfCell)
+                cellGameObjectSize.Set(cellSize, 0.1f, cellSize);
+            else
+            {
+                if (cellGameObjectSize.x > cellSize || cellGameObjectSize.y > cellSize)
+                    Debug.Log("WARNING: cellGameObjectSize is greater than cellSize");
+            }
+
+            tileGameObjects = new GameObject[tileSetSize, tileSetSize];
+
             while (transform.childCount != 0)
                 DestroyImmediate(transform.GetChild(0).gameObject);
 
@@ -39,7 +39,8 @@ public class Grid : MonoBehaviour
                     tile.transform.position = new Vector3(i * cellSize, 0, j * cellSize);
                     tile.transform.parent = gameObject.transform;
                     TileSelector tileSelector = tile.AddComponent<TileSelector>();
-                    tileSelector.tileList = this.tileList;
+                    tileSelector.tileListScriptableObject = this.tileList;
+                    tileSelector.positionOnGrid = new Vector2(i, j);
                 }
             }
 

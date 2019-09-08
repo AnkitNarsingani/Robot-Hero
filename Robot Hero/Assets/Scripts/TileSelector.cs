@@ -2,7 +2,8 @@
 
 public class TileSelector : MonoBehaviour
 {
-    [HideInInspector] public TileList tileList;
+    [HideInInspector] public TileList tileListScriptableObject;
+    [HideInInspector] public Vector2 positionOnGrid;
 
     void Awake()
     {
