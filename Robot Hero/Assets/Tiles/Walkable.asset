@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17dd62f73d0ea534383e42578c314d2a, type: 3}
-  m_Name: Door
+  m_Name: Walkable
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 0}
-  canWalk: 0
+  tilePrefab: {fileID: 1831970373180640, guid: 750f37ec19c649c488929db4b0ec03f2, type: 2}
+  canWalk: 1

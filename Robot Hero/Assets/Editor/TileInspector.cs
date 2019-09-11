@@ -6,7 +6,7 @@ public class TileInspector : Editor
 {
     string[] options;
     int index = 0;
-    [SerializeField]TileSelector tileSelector;
+    [SerializeField] TileSelector tileSelector;
 
     void Init()
     {
@@ -33,11 +33,12 @@ public class TileInspector : Editor
         {
             GameObject newTile = Instantiate(tileSelector.tileListScriptableObject.tilesList[index].tilePrefab, tileSelector.transform.position, Quaternion.identity);
             newTile.transform.localScale = tileSelector.transform.localScale;
-            GridSystem grid = FindObjectOfType<GridSystem>();
-            newTile.transform.parent = grid.transform;
-            grid.tileGameObjects[(int)tileSelector.positionOnGrid.x, (int)tileSelector.positionOnGrid.y] = newTile;
+            newTile.transform.parent = FindObjectOfType<GridSystem>().transform;
+            newTile.AddComponent<TileScript>().canWalk = tileSelector.tileListScriptableObject.tilesList[index].canWalk;
+            GridSystem gridSystem = FindObjectOfType<GridSystem>();
+            gridSystem.tileGameObjects[(int)tileSelector.positionOnGrid.x + (int)tileSelector.positionOnGrid.y * gridSystem.tileSetSize] = newTile;
             DestroyImmediate(tileSelector.gameObject);
-        } 
+        }
         else
             Debug.Log("Prefab not assigned to: " + tileSelector.tileListScriptableObject.tilesList[index].name);
     }
