@@ -1,26 +1,14 @@
 fileFormatVersion: 2
-guid: 4ea98e6f305060a40aab787c9ed0e1be
+guid: 88b096d1e46057f4bb88ebb20efd3d49
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Plane
-    100004: Sphere_014
     400000: //RootNode
-    400002: Plane
-    400004: Sphere_014
-    2100000: Material
-    2100002: skin_001
-    2100004: red_beam_001
-    2100006: Material_002
-    2100008: Material_001
-    2300000: Plane
-    2300002: Sphere_014
-    3300000: Plane
-    3300002: Sphere_014
-    4300000: Plane
-    4300002: Sphere_014
-    7400000: Default Take
+    2100000: lambert1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: polySurface101
     9500000: //RootNode
   externalObjects: {}
   materials:
