@@ -40,7 +40,7 @@ public class GridSystem : MonoBehaviour
         {
             for (int j = 0; j < tileSetSize; j++)
             {
-                Gizmos.DrawWireCube(new Vector3(i * cellSize, 0, j * cellSize), new Vector3(cellSize, 0, cellSize));
+                //Gizmos.DrawWireCube(new Vector3(i * cellSize, 0, j * cellSize), new Vector3(cellSize, 0, cellSize));
             }
         }
     }
