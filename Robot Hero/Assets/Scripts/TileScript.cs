@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileScript : MonoBehaviour
 {
     public bool canWalk;
+    public bool isOccupied = false;
 	// Use this for initialization
 	void Start () {
 		

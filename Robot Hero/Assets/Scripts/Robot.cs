@@ -1,23 +1,28 @@
 ﻿using UnityEngine;
 
-public class Robot : MonoBehaviour
+public abstract class Robot : MonoBehaviour
 {
     [SerializeField] protected Vector2 staringGridPosition;
     [SerializeField] protected Vector2 currentGridPosition;
-    [SerializeField] protected GameObject[] AccessableBlocks;
     [SerializeField] protected float maxInaccuracy = 1;
+    [SerializeField] protected int noOfDirections = 2;
+    [SerializeField] protected GameObject[] AccessableBlocks;
+    [SerializeField] protected Material[] defaultMaterials;
 
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
     private bool raycastHitObject = false;
 
-    [SerializeField] private Material[] defaultMaterials;
     private Material highlightedMaterial;
 
-    void Start()
+    protected abstract void GetAccessibleBlocks();
+
+    public abstract void Move(float x);
+
+    protected void Start()
     {
-        AccessableBlocks = new GameObject[2];
-        defaultMaterials = new Material[2];
+        AccessableBlocks = new GameObject[noOfDirections];
+        defaultMaterials = new Material[noOfDirections];
         currentGridPosition = staringGridPosition;
         highlightedMaterial = Resources.Load("Highlight Tile") as Material;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
@@ -26,37 +31,12 @@ public class Robot : MonoBehaviour
         GetAccessibleBlocks();
     }
 
-    void Update()
+    protected void Update()
     {
         TakeInput();
     }
 
-    void GetAccessibleBlocks()
-    {
-        int upTempY = (int)currentGridPosition.y + 1;
-        int downTempY = (int)currentGridPosition.y - 1;
-
-        GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize] ?? null;
-        GameObject down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize] ?? null;
-
-        if (up != null && up.GetComponent<TileScript>().canWalk)
-        {
-            AccessableBlocks[0] = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize];
-            defaultMaterials[0] = AccessableBlocks[0].GetComponent<MeshRenderer>().material;
-        }
-        else
-            AccessableBlocks[0] = null;
-        if (down != null && down.GetComponent<TileScript>().canWalk)
-        {
-            AccessableBlocks[1] = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize];
-            defaultMaterials[1] = AccessableBlocks[1].GetComponent<MeshRenderer>().material;
-        }
-        else
-            AccessableBlocks[1] = null;
-    }
-
-    protected virtual void TakeInput()
+    protected void TakeInput()
     {
         CheckRaycast();
 
@@ -74,7 +54,7 @@ public class Robot : MonoBehaviour
                     StopHighlightingTiles();
 
                     touchEndPos = touch.position;
-                    if (touchStartPos != touchEndPos)
+                    if (touchStartPos != touchEndPos && touchStartPos != Vector2.zero)
                     {
                         float leastDistance = maxInaccuracy + 1;
                         GameObject tileToMove = null;
@@ -90,19 +70,23 @@ public class Robot : MonoBehaviour
                                 }
                             }
                         }
-                        if (AccessableBlocks[0] == tileToMove)
-                            Move(currentGridPosition.x, currentGridPosition.y + 1);
-                        else if (tileToMove != null)
-                            Move(currentGridPosition.x, currentGridPosition.y - 1);
 
+                        if(tileToMove != null)
+                        {
+                            if (AccessableBlocks[0] == tileToMove)
+                                Move(1);
+                            else if (AccessableBlocks[1] == tileToMove)
+                                Move(-1);
+                        }
                     }
                     raycastHitObject = false;
+                    touchStartPos = Vector2.zero;
                     break;
             }
         }
     }
 
-    void CheckRaycast()
+    private void CheckRaycast()
     {
         if (Input.touchCount > 0)
         {
@@ -116,7 +100,7 @@ public class Robot : MonoBehaviour
         }
     }
 
-    protected virtual void StartHighlightingTiles()
+    private void StartHighlightingTiles()
     {
         foreach (GameObject tile in AccessableBlocks)
         {
@@ -125,7 +109,7 @@ public class Robot : MonoBehaviour
         }
     }
 
-    protected virtual void StopHighlightingTiles()
+    private void StopHighlightingTiles()
     {
         for (int i = 0; i < 2; i++)
         {
@@ -134,7 +118,7 @@ public class Robot : MonoBehaviour
         }
     }
 
-    float GetTileDistance(GameObject tile, Vector2 touchPosition)
+    private float GetTileDistance(GameObject tile, Vector2 touchPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(touchPosition);
         Plane plane = new Plane(Vector3.up, transform.position);
@@ -145,14 +129,5 @@ public class Robot : MonoBehaviour
             return Vector3.Distance(pos, tile.transform.position);
         }
         return maxInaccuracy + 1;
-    }
-
-    protected virtual void Move(float x, float y)
-    {
-        currentGridPosition = new Vector2(x, y);
-        GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        Vector3 currentTilePositon = gridSystem.tileGameObjects[(int)currentGridPosition.x + (int)currentGridPosition.y * gridSystem.tileSetSize].transform.position;
-        transform.position = new Vector3(currentTilePositon.x, transform.position.y, currentTilePositon.z);
-        GetAccessibleBlocks();
     }
 }

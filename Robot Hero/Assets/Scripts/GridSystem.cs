@@ -35,14 +35,6 @@ public class GridSystem : MonoBehaviour
 
             valueCheckForSize = tileSetSize - cellSize;
         }
-
-        for (int i = 0; i < tileSetSize; i++)
-        {
-            for (int j = 0; j < tileSetSize; j++)
-            {
-                //Gizmos.DrawWireCube(new Vector3(i * cellSize, 0, j * cellSize), new Vector3(cellSize, 0, cellSize));
-            }
-        }
     }
 
     private void Reset()
