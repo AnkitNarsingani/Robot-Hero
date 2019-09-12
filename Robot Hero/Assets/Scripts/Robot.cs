@@ -92,7 +92,7 @@ public class Robot : MonoBehaviour
                         }
                         if (AccessableBlocks[0] == tileToMove)
                             Move(currentGridPosition.x, currentGridPosition.y + 1);
-                        else
+                        else if (tileToMove != null)
                             Move(currentGridPosition.x, currentGridPosition.y - 1);
 
                     }
