@@ -3,11 +3,13 @@
 public abstract class Robot : MonoBehaviour
 {
     [SerializeField] protected Vector2 staringGridPosition;
-    [SerializeField] protected Vector2 currentGridPosition;
+    [SerializeField] public Vector2 currentGridPosition;
     [SerializeField] protected float maxInaccuracy = 1;
     [SerializeField] protected int noOfDirections = 2;
     [SerializeField] protected GameObject[] AccessableBlocks;
     [SerializeField] protected Material[] defaultMaterials;
+
+    public GameObject currentTile;
 
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
@@ -17,7 +19,8 @@ public abstract class Robot : MonoBehaviour
 
     protected abstract void GetAccessibleBlocks();
 
-    public abstract void Move(float x);
+    public abstract void Move(GameObject tile);
+    public abstract bool Move(float x);
 
     protected void Start()
     {
@@ -26,7 +29,9 @@ public abstract class Robot : MonoBehaviour
         currentGridPosition = staringGridPosition;
         highlightedMaterial = Resources.Load("Highlight Tile") as Material;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        Vector3 startingTilePositon = gridSystem.tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize].transform.position;
+        currentTile = gridSystem.tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize];
+        currentTile.GetComponent<TileScript>().isOccupied = true;
+        Vector3 startingTilePositon = currentTile.transform.position;
         transform.position = new Vector3(startingTilePositon.x, transform.position.y, startingTilePositon.z);
         GetAccessibleBlocks();
     }
@@ -71,13 +76,8 @@ public abstract class Robot : MonoBehaviour
                             }
                         }
 
-                        if(tileToMove != null)
-                        {
-                            if (AccessableBlocks[0] == tileToMove)
-                                Move(1);
-                            else if (AccessableBlocks[1] == tileToMove)
-                                Move(-1);
-                        }
+                        if (tileToMove != null)
+                            Move(tileToMove);
                     }
                     raycastHitObject = false;
                     touchStartPos = Vector2.zero;
