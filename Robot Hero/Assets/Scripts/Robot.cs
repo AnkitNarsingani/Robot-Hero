@@ -20,7 +20,6 @@ public abstract class Robot : MonoBehaviour
     protected abstract void GetAccessibleBlocks();
 
     public abstract void Move(GameObject tile);
-    public abstract bool Move(float x);
 
     protected void Start()
     {
@@ -111,7 +110,7 @@ public abstract class Robot : MonoBehaviour
 
     private void StopHighlightingTiles()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < noOfDirections; i++)
         {
             if (AccessableBlocks[i] != null)
                 AccessableBlocks[i].GetComponent<MeshRenderer>().material = defaultMaterials[i];
@@ -129,5 +128,24 @@ public abstract class Robot : MonoBehaviour
             return Vector3.Distance(pos, tile.transform.position);
         }
         return maxInaccuracy + 1;
+    }
+
+    public bool Move(float x, float y)
+    {
+        Vector3 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
+        GridSystem gridSystem = FindObjectOfType<GridSystem>();
+        GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
+        if (updatedTile != null && updatedTile.GetComponent<TileScript>().canWalk)
+        {
+            currentGridPosition = tempGridPosition;
+            transform.position = new Vector3(updatedTile.transform.position.x, transform.position.y, updatedTile.transform.position.z);
+            currentTile.GetComponent<TileScript>().isOccupied = false;
+            updatedTile.GetComponent<TileScript>().isOccupied = true;
+            currentTile = updatedTile;
+            GetAccessibleBlocks();
+            return true;
+        }
+
+        return false;
     }
 }

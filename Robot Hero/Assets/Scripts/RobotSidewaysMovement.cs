@@ -44,7 +44,7 @@ public class RobotSidewaysMovement : Robot
             {
                 if (robot.currentGridPosition == tempGridPosition)
                 {
-                    if (robot.Move(x))
+                    if (robot.Move(x, 0))
                         break;
                     else
                         return;
@@ -59,24 +59,5 @@ public class RobotSidewaysMovement : Robot
         tile.GetComponent<TileScript>().isOccupied = true;
         currentTile = tile;
         GetAccessibleBlocks();
-    }
-
-    public override bool Move(float y)
-    {
-        Vector3 tempGridPosition = new Vector2(currentGridPosition.x, currentGridPosition.y + y);
-        GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
-        if (updatedTile != null && updatedTile.GetComponent<TileScript>().canWalk)
-        {
-            currentGridPosition = tempGridPosition;
-            transform.position = new Vector3(updatedTile.transform.position.x, transform.position.y, updatedTile.transform.position.z);
-            currentTile.GetComponent<TileScript>().isOccupied = false;
-            updatedTile.GetComponent<TileScript>().isOccupied = true;
-            currentTile = updatedTile;
-            GetAccessibleBlocks();
-            return true;
-        }
-
-        return false;
     }
 }

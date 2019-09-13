@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 
-public class RobotBackForthMovement : Robot
+public class RobotAlternateMovement : Robot
 {
     protected override void GetAccessibleBlocks()
     {
-        int upTempY = (int)currentGridPosition.y + 1;
-        int downTempY = (int)currentGridPosition.y - 1;
+        int upTempY = (int)currentGridPosition.y + 2;
+        int downTempY = (int)currentGridPosition.y - 2;
+        int leftTempX = (int)currentGridPosition.x - 2;
+        int rightTempX = (int)currentGridPosition.x + 2;    
 
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize] ?? null;
         GameObject down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize] ?? null;
+        GameObject right = gridSystem.tileGameObjects[rightTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
+        GameObject left = gridSystem.tileGameObjects[leftTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
+
 
         if (up != null && up.GetComponent<TileScript>().canWalk)
         {
@@ -26,17 +31,40 @@ public class RobotBackForthMovement : Robot
         }
         else
             AccessableBlocks[1] = null;
+
+        
+        if (right != null && right.GetComponent<TileScript>().canWalk)
+        {
+            AccessableBlocks[2] = right;
+            defaultMaterials[2] = right.GetComponent<MeshRenderer>().material;
+        }
+        else
+            AccessableBlocks[2] = null;
+
+        if (left != null && left.GetComponent<TileScript>().canWalk)
+        {
+            AccessableBlocks[3] = left;
+            defaultMaterials[3] = left.GetComponent<MeshRenderer>().material;
+        }
+        else
+            AccessableBlocks[3] = null;
     }
 
     public override void Move(GameObject tile)
     {
-        float y = 0;
-        if (AccessableBlocks[0] == tile)
-            y = 1;
-        else if (AccessableBlocks[1] == tile)
-            y = -1;
+        float y = 0, x = 0;
 
-        Vector2 tempGridPosition = new Vector2(currentGridPosition.x, currentGridPosition.y + y);
+        if (AccessableBlocks[0] == tile)
+            y = 2;
+        else if (AccessableBlocks[1] == tile)
+            y = -2;
+        else if (AccessableBlocks[2] == tile)
+            x = 2;
+        else
+            x = -2;
+
+        Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
+
         if (tile.GetComponent<TileScript>().isOccupied)
         {
             Robot[] robots = FindObjectsOfType<Robot>();
@@ -44,7 +72,7 @@ public class RobotBackForthMovement : Robot
             {
                 if (robot.currentGridPosition == tempGridPosition)
                 {
-                    if (robot.Move(0, y))
+                    if (robot.Move(x == 0 ? x : x > 0 ? x - 1 : x + 1, y == 0 ? y : y > 0 ? y - 1 : y + 1))
                         break;
                     else
                         return;
