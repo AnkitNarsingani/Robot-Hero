@@ -132,11 +132,23 @@ public abstract class Robot : MonoBehaviour
 
     public bool Move(float x, float y)
     {
-        Vector3 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
+        Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
         if (updatedTile != null && updatedTile.GetComponent<TileScript>().canWalk)
         {
+            if(updatedTile.GetComponent<TileScript>().isOccupied)
+            {
+                Robot[] robots = FindObjectsOfType<Robot>();
+                foreach (Robot robot in robots)
+                {
+                    if (robot.currentGridPosition == tempGridPosition)
+                    {
+                        if (!robot.Move(x, y))
+                            return false;
+                    }
+                }
+            }
             currentGridPosition = tempGridPosition;
             transform.position = new Vector3(updatedTile.transform.position.x, transform.position.y, updatedTile.transform.position.z);
             currentTile.GetComponent<TileScript>().isOccupied = false;
