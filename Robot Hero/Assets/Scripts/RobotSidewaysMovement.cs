@@ -36,13 +36,13 @@ public class RobotSidewaysMovement : Robot
         else if (AccessableBlocks[1] == tile)
             x = -1;
 
-        currentGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y);
+        Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y);
         if (tile.GetComponent<TileScript>().isOccupied)
         {
             Robot[] robots = FindObjectsOfType<Robot>();
             foreach (Robot robot in robots)
             {
-                if (robot.currentGridPosition == currentGridPosition)
+                if (robot.currentGridPosition == tempGridPosition)
                 {
                     if (robot.Move(x))
                         break;
@@ -51,7 +51,8 @@ public class RobotSidewaysMovement : Robot
                 }     
             }
         }
-        
+
+        currentGridPosition = tempGridPosition;
         Vector3 updatedTilePositon = tile.transform.position;
         transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
         currentTile.GetComponent<TileScript>().isOccupied = false;

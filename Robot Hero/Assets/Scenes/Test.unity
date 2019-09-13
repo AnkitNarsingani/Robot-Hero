@@ -5369,6 +5369,7 @@ MonoBehaviour:
   noOfDirections: 2
   AccessableBlocks: []
   defaultMaterials: []
+  currentTile: {fileID: 0}
 --- !u!135 &479667837
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5565,12 +5566,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ce473fb029cd8478efa0763f89be6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staringGridPosition: {x: 2, y: 10}
+  staringGridPosition: {x: 2, y: 6}
   currentGridPosition: {x: 0, y: 0}
   maxInaccuracy: 5
   noOfDirections: 2
   AccessableBlocks: []
   defaultMaterials: []
+  currentTile: {fileID: 0}
 --- !u!23 &510498080
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RobotBackForthMovement : Robot
 {
@@ -38,13 +36,13 @@ public class RobotBackForthMovement : Robot
         else if (AccessableBlocks[1] == tile)
             y = -1;
 
-        currentGridPosition = new Vector2(currentGridPosition.x, currentGridPosition.y + y);
+        Vector2 tempGridPosition = new Vector2(currentGridPosition.x, currentGridPosition.y + y);
         if (tile.GetComponent<TileScript>().isOccupied)
         {
             Robot[] robots = FindObjectsOfType<Robot>();
             foreach (Robot robot in robots)
             {
-                if (robot.currentGridPosition == currentGridPosition)
+                if (robot.currentGridPosition == tempGridPosition)
                 {
                     if (robot.Move(y))
                         break;
@@ -54,6 +52,7 @@ public class RobotBackForthMovement : Robot
             }
         }
 
+        currentGridPosition = tempGridPosition;
         Vector3 updatedTilePositon = tile.transform.position;
         transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
         currentTile.GetComponent<TileScript>().isOccupied = false;
