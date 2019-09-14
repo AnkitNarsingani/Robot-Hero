@@ -1,62 +1,45 @@
 ﻿using UnityEngine;
-
-[ExecuteInEditMode]
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class GridSystem : MonoBehaviour
 {
-    [SerializeField] private TileList tileList;
-    [SerializeField] public int tileSetSize = 10;
-    [SerializeField] private float cellSize = 1;
-    [SerializeField] private bool shouldAutoAdjustValueOfCell = false;
-    [SerializeField] Vector3 cellGameObjectSize = new Vector3(0.7f, 0.1f, 0.7f);
+    [Header("Do not change these values, to edit values use the Tile Editor window")]
+#if UNITY_EDITOR
+    [ReadOnly]
+#endif
+    public int tileSetSize;
 
-    [SerializeField] public GameObject[] tileGameObjects;
+#if UNITY_EDITOR
+    [ReadOnly]
+#endif
+    public float cellSize;
 
-    private float valueCheckForSize;
+    public GameObject[] tileGameObjects;
+}
 
-    private void Awake()
+#if UNITY_EDITOR
+public class ReadOnlyAttribute : PropertyAttribute
+{
+
+}
+
+[CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
+public class ReadOnlyDrawer : PropertyDrawer
+{
+    public override float GetPropertyHeight(SerializedProperty property,
+                                            GUIContent label)
     {
-        valueCheckForSize = tileSetSize - cellSize;
+        return EditorGUI.GetPropertyHeight(property, label, true);
     }
 
-    private void OnDrawGizmos()
+    public override void OnGUI(Rect position,
+                               SerializedProperty property,
+                               GUIContent label)
     {
-        float diffrenceToCheck = tileSetSize - cellSize;
-        if (diffrenceToCheck != valueCheckForSize)
-        {
-            if (shouldAutoAdjustValueOfCell)
-                cellGameObjectSize.Set(cellSize, 0.1f, cellSize);
-            else
-            {
-                if (cellGameObjectSize.x > cellSize || cellGameObjectSize.y > cellSize)
-                    Debug.Log("WARNING: cellGameObjectSize is greater than cellSize");
-            }
-
-            Reset();
-
-            valueCheckForSize = tileSetSize - cellSize;
-        }
-    }
-
-    private void Reset()
-    {
-        tileGameObjects = new GameObject[tileSetSize * tileSetSize];
-
-        while (transform.childCount != 0)
-            DestroyImmediate(transform.GetChild(0).gameObject);
-
-        for (int i = 0; i < tileSetSize; i++)
-        {
-            for (int j = 0; j < tileSetSize; j++)
-            {
-                GameObject tile = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                tile.name = "Tile [" + i + "] [" + j + "]";
-                tile.transform.localScale = cellGameObjectSize;
-                tile.transform.position = new Vector3(i * cellSize, 0, j * cellSize);
-                tile.transform.parent = gameObject.transform;
-                TileSelector tileSelector = tile.AddComponent<TileSelector>();
-                tileSelector.tileListScriptableObject = this.tileList;
-                tileSelector.positionOnGrid = new Vector2(i, j);
-            }
-        }
+        GUI.enabled = false;
+        EditorGUI.PropertyField(position, property, label, true);
+        GUI.enabled = true;
     }
 }
+#endif
