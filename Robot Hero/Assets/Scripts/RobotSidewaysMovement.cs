@@ -48,7 +48,7 @@ public class RobotSidewaysMovement : Robot
                         break;
                     else
                         return;
-                }     
+                }
             }
         }
 

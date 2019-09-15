@@ -7,13 +7,19 @@ public class RobotAlternateMovement : Robot
         int upTempY = (int)currentGridPosition.y + 2;
         int downTempY = (int)currentGridPosition.y - 2;
         int leftTempX = (int)currentGridPosition.x - 2;
-        int rightTempX = (int)currentGridPosition.x + 2;    
+        int rightTempX = (int)currentGridPosition.x + 2;
 
+        GameObject up = null, down = null, left = null, right = null;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize] ?? null;
-        GameObject down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize] ?? null;
-        GameObject right = gridSystem.tileGameObjects[rightTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
-        GameObject left = gridSystem.tileGameObjects[leftTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
+
+        if(upTempY > 0 && upTempY < gridSystem.tileSetSize)
+            up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize] ?? null;
+        if (downTempY > 0 && downTempY < gridSystem.tileSetSize)
+            down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize] ?? null;
+        if (rightTempX > 0 && rightTempX < gridSystem.tileSetSize)
+            right = gridSystem.tileGameObjects[rightTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
+        if (leftTempX > 0 && leftTempX < gridSystem.tileSetSize)
+            left = gridSystem.tileGameObjects[leftTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
 
 
         if (up != null && up.GetComponent<TileScript>().canWalk)

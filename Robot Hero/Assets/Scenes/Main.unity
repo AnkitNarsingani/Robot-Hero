@@ -2253,7 +2253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a6de23a7a2e184daa149fe0454d5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staringGridPosition: {x: 2, y: 10}
+  staringGridPosition: {x: 4, y: 4}
   currentGridPosition: {x: 0, y: 0}
   maxInaccuracy: 1
   noOfDirections: 4
@@ -5019,7 +5019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decd4f737b71ed7449be955f71a0f4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staringGridPosition: {x: 2, y: 5}
+  staringGridPosition: {x: 4, y: 5}
   currentGridPosition: {x: 0, y: 0}
   maxInaccuracy: 5
   noOfDirections: 2
@@ -5209,7 +5209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ce473fb029cd8478efa0763f89be6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staringGridPosition: {x: 2, y: 6}
+  staringGridPosition: {x: 4, y: 6}
   currentGridPosition: {x: 0, y: 0}
   maxInaccuracy: 5
   noOfDirections: 2

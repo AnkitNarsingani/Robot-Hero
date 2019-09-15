@@ -74,7 +74,6 @@ public class TileEditor : EditorWindow
 
     private void ResetTiles()
     {
-        Debug.Log("Call");
         while (gridGameObject.transform.childCount != 0)
             DestroyImmediate(gridGameObject.transform.GetChild(0).gameObject);
 
