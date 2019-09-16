@@ -12,14 +12,14 @@ public class RobotAlternateMovement : Robot
         GameObject up = null, down = null, left = null, right = null;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
 
-        if(upTempY > 0 && upTempY < gridSystem.tileSetSize)
-            up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize] ?? null;
-        if (downTempY > 0 && downTempY < gridSystem.tileSetSize)
-            down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize] ?? null;
-        if (rightTempX > 0 && rightTempX < gridSystem.tileSetSize)
-            right = gridSystem.tileGameObjects[rightTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
-        if (leftTempX > 0 && leftTempX < gridSystem.tileSetSize)
-            left = gridSystem.tileGameObjects[leftTempX + (int)currentGridPosition.y * gridSystem.tileSetSize] ?? null;
+        if(upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
+            up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize];
+        if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
+            down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize];
+        if (rightTempX >= 0 && rightTempX <= gridSystem.tileSetSize)
+            right = gridSystem.tileGameObjects[rightTempX + (int)currentGridPosition.y * gridSystem.tileSetSize];
+        if (leftTempX >= 0 && leftTempX <= gridSystem.tileSetSize)
+            left = gridSystem.tileGameObjects[leftTempX + (int)currentGridPosition.y * gridSystem.tileSetSize];
 
 
         if (up != null && up.GetComponent<TileScript>().canWalk)
@@ -71,7 +71,7 @@ public class RobotAlternateMovement : Robot
 
         Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
 
-        if (tile.GetComponent<TileScript>().isOccupied)
+        if (tile.GetComponent<TileScript>().IsOccupied)
         {
             Robot[] robots = FindObjectsOfType<Robot>();
             foreach (Robot robot in robots)
@@ -89,8 +89,8 @@ public class RobotAlternateMovement : Robot
         currentGridPosition = tempGridPosition;
         Vector3 updatedTilePositon = tile.transform.position;
         transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
-        currentTile.GetComponent<TileScript>().isOccupied = false;
-        tile.GetComponent<TileScript>().isOccupied = true;
+        currentTile.GetComponent<TileScript>().Vacate();
+        tile.GetComponent<TileScript>().Occupy(gameObject);
         currentTile = tile;
         GetAccessibleBlocks();
     }

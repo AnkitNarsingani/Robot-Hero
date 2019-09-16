@@ -29,7 +29,7 @@ public abstract class Robot : MonoBehaviour
         highlightedMaterial = Resources.Load("Highlight Tile") as Material;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         currentTile = gridSystem.tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize];
-        currentTile.GetComponent<TileScript>().isOccupied = true;
+        currentTile.GetComponent<TileScript>().Occupy();
         Vector3 startingTilePositon = currentTile.transform.position;
         transform.position = new Vector3(startingTilePositon.x, transform.position.y, startingTilePositon.z);
         GetAccessibleBlocks();
@@ -135,9 +135,10 @@ public abstract class Robot : MonoBehaviour
         Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
-        if (updatedTile != null && updatedTile.GetComponent<TileScript>().canWalk)
+        TileScript updatedTileScript = updatedTile.GetComponent<TileScript>();
+        if (updatedTile != null && updatedTileScript.canWalk)
         {
-            if(updatedTile.GetComponent<TileScript>().isOccupied)
+            if (updatedTileScript.IsOccupied)
             {
                 Robot[] robots = FindObjectsOfType<Robot>();
                 foreach (Robot robot in robots)
@@ -151,8 +152,8 @@ public abstract class Robot : MonoBehaviour
             }
             currentGridPosition = tempGridPosition;
             transform.position = new Vector3(updatedTile.transform.position.x, transform.position.y, updatedTile.transform.position.z);
-            currentTile.GetComponent<TileScript>().isOccupied = false;
-            updatedTile.GetComponent<TileScript>().isOccupied = true;
+            currentTile.GetComponent<TileScript>().Vacate();
+            updatedTile.GetComponent<TileScript>().Occupy(gameObject);
             currentTile = updatedTile;
             GetAccessibleBlocks();
             return true;

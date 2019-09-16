@@ -8,8 +8,12 @@ public class RobotBackForthMovement : Robot
         int downTempY = (int)currentGridPosition.y - 1;
 
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize] ?? null;
-        GameObject down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize] ?? null;
+        GameObject up = null, down = null;
+
+        if(upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
+            up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize];
+        if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
+            down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize];
 
         if (up != null && up.GetComponent<TileScript>().canWalk)
         {
@@ -37,7 +41,7 @@ public class RobotBackForthMovement : Robot
             y = -1;
 
         Vector2 tempGridPosition = new Vector2(currentGridPosition.x, currentGridPosition.y + y);
-        if (tile.GetComponent<TileScript>().isOccupied)
+        if (tile.GetComponent<TileScript>().IsOccupied)
         {
             Robot[] robots = FindObjectsOfType<Robot>();
             foreach (Robot robot in robots)
@@ -55,8 +59,8 @@ public class RobotBackForthMovement : Robot
         currentGridPosition = tempGridPosition;
         Vector3 updatedTilePositon = tile.transform.position;
         transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
-        currentTile.GetComponent<TileScript>().isOccupied = false;
-        tile.GetComponent<TileScript>().isOccupied = true;
+        currentTile.GetComponent<TileScript>().Vacate();
+        tile.GetComponent<TileScript>().Occupy(gameObject);
         currentTile = tile;
         GetAccessibleBlocks();
     }
