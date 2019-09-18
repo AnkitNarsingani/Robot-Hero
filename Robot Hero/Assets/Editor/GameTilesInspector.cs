@@ -1,0 +1,47 @@
+﻿using UnityEngine;
+using UnityEditor;
+
+[CustomEditor(typeof(TileScript))]
+public class GameTilesInspector : Editor
+{
+    private SerializedProperty _value;
+
+    private void OnEnable()
+    {
+        _value = serializedObject.FindProperty("canWalk");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(_value, new GUIContent("Can Walk"));
+        serializedObject.ApplyModifiedProperties();
+
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        if (GUILayout.Button("Revert Tile"))
+            Revert();
+    }
+
+    void Revert()
+    {
+        TileScript tileScript = target as TileScript;
+        GameObject newTile = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        newTile.transform.localScale = tileScript.transform.localScale;
+        newTile.transform.position = tileScript.transform.position;
+        newTile.transform.SetParent(tileScript.transform.parent);
+        TileSelector tileSelector = newTile.AddComponent<TileSelector>();
+        tileSelector.tileListScriptableObject = Resources.Load("Tile List") as TileList;
+        GridSystem gridSystem = FindObjectOfType<GridSystem>();
+        int index = System.Array.FindIndex(gridSystem.tileGameObjects, item => item == tileScript.gameObject);
+        if(index != -1)
+        {
+            tileSelector.positionOnGrid.x = (int)index % gridSystem.tileSetSize;
+            tileSelector.positionOnGrid.y = (int)index / gridSystem.tileSetSize;
+            newTile.name = "Tile [" + tileSelector.positionOnGrid.x + "] [" + tileSelector.positionOnGrid.y + "]";
+        }
+        DestroyImmediate(tileScript.gameObject);
+    }
+}

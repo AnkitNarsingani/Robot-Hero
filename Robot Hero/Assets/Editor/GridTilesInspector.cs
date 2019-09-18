@@ -2,11 +2,19 @@
 using UnityEditor;
 
 [CustomEditor(typeof(TileSelector))]
-public class TileInspector : Editor
+[CanEditMultipleObjects]
+public class GridTilesInspector : Editor
 {
     string[] options;
     int index = 0;
     [SerializeField] TileSelector tileSelector;
+
+    private SerializedProperty _value;
+
+    private void OnEnable()
+    {
+        _value = serializedObject.FindProperty("positionOnGrid");
+    }
 
     void Init()
     {
@@ -21,6 +29,10 @@ public class TileInspector : Editor
 
     public override void OnInspectorGUI()
     {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(_value, new GUIContent("Position On Grid"));
+        serializedObject.ApplyModifiedProperties();
+
         Init();
         index = EditorGUILayout.Popup("Tile:", index, options);
         if (GUILayout.Button("Create"))

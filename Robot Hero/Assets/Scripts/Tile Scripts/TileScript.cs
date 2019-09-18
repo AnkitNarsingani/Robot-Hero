@@ -2,7 +2,7 @@
 
 public class TileScript : MonoBehaviour
 {
-    public bool canWalk;
+    [SerializeField] public bool canWalk;
     protected bool isOccupied = false;
 
     public bool IsOccupied
