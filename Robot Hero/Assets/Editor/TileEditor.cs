@@ -74,6 +74,11 @@ public class TileEditor : EditorWindow
 
     private void ResetTiles()
     {
+        GridSystem gridSystem = gridGameObject.GetComponent<GridSystem>();
+        gridSystem.tileGameObjects = new GameObject[tileSetSize * tileSetSize];
+        gridSystem.tileSetSize = tileSetSize;
+        gridSystem.cellSize = cellSize;
+
         while (gridGameObject.transform.childCount != 0)
             DestroyImmediate(gridGameObject.transform.GetChild(0).gameObject);
 
@@ -91,8 +96,7 @@ public class TileEditor : EditorWindow
                 tileSelector.positionOnGrid = new Vector2(i, j);
             }
         }
-
-        GridSystem gridSystem = gridGameObject.GetComponent<GridSystem>();
+  
         gridSystem.tileSetSize = tileSetSize;
         gridSystem.cellSize = cellSize;
     }
