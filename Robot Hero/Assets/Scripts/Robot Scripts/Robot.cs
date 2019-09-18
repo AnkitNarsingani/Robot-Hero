@@ -29,7 +29,7 @@ public abstract class Robot : MonoBehaviour
         highlightedMaterial = Resources.Load("Highlight Tile") as Material;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         currentTile = gridSystem.tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize];
-        currentTile.GetComponent<TileScript>().Occupy();
+        currentTile.GetComponent<TileScript>().Occupy(gameObject);
         Vector3 startingTilePositon = currentTile.transform.position;
         transform.position = new Vector3(startingTilePositon.x, transform.position.y, startingTilePositon.z);
         GetAccessibleBlocks();

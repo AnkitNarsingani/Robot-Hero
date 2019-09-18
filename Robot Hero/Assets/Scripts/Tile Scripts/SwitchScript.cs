@@ -1,16 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SwitchScript : MonoBehaviour
+public class SwitchScript : TileScript
 {
-    void Start()
+    [Header("The door this switch should Unlock")]
+    [SerializeField] private DoorScript door = null;
+
+
+    public override void Occupy(GameObject occupiedRobot)
     {
-
-    }
-
-    void Update()
-    {
-
+        isOccupied = true;
+        if (door != null)
+        {
+            door.isUnlocked = true;
+            door.Occupy();
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.Log("Door to unlock not assigned");
+#endif
+        }
     }
 }

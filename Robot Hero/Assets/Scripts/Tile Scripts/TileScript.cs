@@ -3,7 +3,7 @@
 public class TileScript : MonoBehaviour
 {
     public bool canWalk;
-    private bool isOccupied = false;
+    protected bool isOccupied = false;
 
     public bool IsOccupied
     {

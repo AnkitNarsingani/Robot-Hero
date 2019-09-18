@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4688441301253604}
   - component: {fileID: 33275125325823452}
   - component: {fileID: 23334991923569056}
+  - component: {fileID: 114006136820396332}
   m_Layer: 0
   m_Name: Switch
   m_TagString: Untagged
@@ -82,3 +83,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1078831324758806}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114006136820396332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1078831324758806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ac761238779faa4f842a5f4215f4498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canWalk: 1
+  door: {fileID: 0}
