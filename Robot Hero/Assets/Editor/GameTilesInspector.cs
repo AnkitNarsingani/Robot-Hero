@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(TileScript))]
+[CustomEditor(typeof(TileScript), true)]
+[CanEditMultipleObjects]
 public class GameTilesInspector : Editor
 {
-    private SerializedProperty _value;
+    private SerializedProperty canWalk;
+    private SerializedProperty door;
 
     private void OnEnable()
     {
-        _value = serializedObject.FindProperty("canWalk");
+
+        canWalk = serializedObject.FindProperty("canWalk");
+        door = serializedObject.FindProperty("door");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-        EditorGUILayout.PropertyField(_value, new GUIContent("Can Walk"));
+        EditorGUILayout.PropertyField(canWalk, new GUIContent("Can Walk"));
+        EditorGUILayout.PropertyField(canWalk, new GUIContent("Is Unlocked"));
+        if (door != null)
+            EditorGUILayout.PropertyField(door, new GUIContent("Door"));
         serializedObject.ApplyModifiedProperties();
 
         EditorGUILayout.Space();
@@ -36,7 +43,7 @@ public class GameTilesInspector : Editor
         tileSelector.tileListScriptableObject = Resources.Load("Tile List") as TileList;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         int index = System.Array.FindIndex(gridSystem.tileGameObjects, item => item == tileScript.gameObject);
-        if(index != -1)
+        if (index != -1)
         {
             tileSelector.positionOnGrid.x = (int)index % gridSystem.tileSetSize;
             tileSelector.positionOnGrid.y = (int)index / gridSystem.tileSetSize;

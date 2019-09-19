@@ -10,10 +10,7 @@ public class SwitchScript : TileScript
     {
         isOccupied = true;
         if (door != null)
-        {
-            door.isUnlocked = true;
-            door.Occupy();
-        }
+            door.IsUnlocked = true;
         else
         {
 #if UNITY_EDITOR

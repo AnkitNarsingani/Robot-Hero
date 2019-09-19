@@ -4,24 +4,21 @@ public class DoorScript : TileScript
 {
     int noOfRobotsFinished = 0;
 
-    [SerializeField] public bool isUnlocked = true;
-
-    public override void Occupy()
+    [SerializeField] public bool IsUnlocked
     {
-        Robot[] robots = FindObjectsOfType<Robot>();
-        foreach (Robot robot in robots)
+        get
         {
-            if(robot.currentTile == gameObject)
-            {
-                Occupy(robot.gameObject);
-                break;
-            }
+            return canWalk;
+        }
+        set
+        {
+            canWalk = value;
         }
     }
 
     public override void Occupy(GameObject occupiedRobot)
     {
-        if (isUnlocked)
+        if (IsUnlocked)
         {
             Robot robot = occupiedRobot.GetComponent<Robot>();
 
@@ -48,7 +45,7 @@ public class DoorScript : TileScript
 
     void CheckWinCondition()
     {
-        if(noOfRobotsFinished >= 2)
+        if (noOfRobotsFinished >= 2)
         {
             FindObjectOfType<Canvas>().transform.GetChild(0).gameObject.SetActive(true);
         }
