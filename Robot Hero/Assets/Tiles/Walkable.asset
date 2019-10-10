@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17dd62f73d0ea534383e42578c314d2a, type: 3}
   m_Name: Walkable
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 1831970373180640, guid: 750f37ec19c649c488929db4b0ec03f2, type: 2}
+  tilePrefab: {fileID: 1165071080351676, guid: f10ee7eb89dca554f9029694d213861a, type: 2}
   canWalk: 1
