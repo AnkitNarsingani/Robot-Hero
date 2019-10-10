@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 86f8d1db84e32bb48a94b42071ac0338
+guid: d491140c9863aee4c9b4381137c9b6eb
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -75,8 +75,7 @@ ModelImporter:
     400066: polySurface250
     400068: polySurface251
     400070: polySurface252
-    2100000: lambert1
-    2100002: lambert2
+    2100000: lambert32
     2300000: polySurface218
     2300002: polySurface219
     2300004: polySurface220
