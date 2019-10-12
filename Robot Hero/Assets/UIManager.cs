@@ -11,13 +11,13 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        stepText.text = stepCounter.Variable.Value.ToString();
+        stepText.text = stepCounter.Value.ToString();
     }
 
     public void UpdateSteps()
     {
         stepCounter.Variable.ApplyChange(-1);
-        stepText.text = stepCounter.Variable.Value.ToString();
+        stepText.text = stepCounter.Value.ToString();
         CheckLoseConditions();
     }
 

@@ -2848,6 +2848,16 @@ Prefab:
       propertyPath: playerMoveEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114599311276963528, guid: effc0bb4df4e62749bc528486b20ebd1,
+        type: 2}
+      propertyPath: playerMoveEvent.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114599311276963528, guid: effc0bb4df4e62749bc528486b20ebd1,
+        type: 2}
+      propertyPath: playerMoveEvent.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: effc0bb4df4e62749bc528486b20ebd1, type: 2}
   m_IsPrefabParent: 0
@@ -4084,7 +4094,7 @@ MonoBehaviour:
   GameOverText: {fileID: 1326137006}
   stepCounter:
     UseConstant: 0
-    ConstantValue: 0
+    ConstantValue: 2
     Variable: {fileID: 11400000, guid: dfe1d2bbb73603a4d9606f0270deaa02, type: 2}
 --- !u!1 &1253080671
 GameObject:
