@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Robot : MonoBehaviour
 {
@@ -8,8 +9,9 @@ public abstract class Robot : MonoBehaviour
     [SerializeField] protected int noOfDirections = 2;
     [SerializeField] protected GameObject[] AccessableBlocks;
     [SerializeField] protected Material[] defaultMaterials;
+    [SerializeField] protected UnityEvent playerMoveEvent;
 
-    public GameObject currentTile;
+    [HideInInspector] public GameObject currentTile;
 
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;

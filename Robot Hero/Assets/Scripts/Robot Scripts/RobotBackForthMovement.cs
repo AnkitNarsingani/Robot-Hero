@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class RobotBackForthMovement : Robot
 {
@@ -62,6 +63,7 @@ public class RobotBackForthMovement : Robot
         currentTile.GetComponent<TileScript>().Vacate();
         tile.GetComponent<TileScript>().Occupy(gameObject);
         currentTile = tile;
+        playerMoveEvent.Invoke();
         GetAccessibleBlocks();
     }
 }
