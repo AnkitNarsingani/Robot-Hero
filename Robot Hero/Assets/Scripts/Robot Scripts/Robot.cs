@@ -19,6 +19,8 @@ public abstract class Robot : MonoBehaviour, IPushable
     private Vector2 touchEndPos;
     private bool raycastHitObject = false;
 
+    protected static GameObject lastHighlightedRobot;
+
     private Material highlightedMaterial;
 
     public static IPushable[] pushables;
@@ -71,8 +73,6 @@ public abstract class Robot : MonoBehaviour, IPushable
                     break;
 
                 case TouchPhase.Ended:
-                    StopHighlightingTiles();
-
                     touchEndPos = touch.position;
                     if (touchStartPos != touchEndPos && touchStartPos != Vector2.zero)
                     {
@@ -117,6 +117,11 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     private void StartHighlightingTiles()
     {
+        if (lastHighlightedRobot != null)
+            lastHighlightedRobot.GetComponent<Robot>().StopHighlightingTiles();
+
+        lastHighlightedRobot = gameObject;
+
         foreach (GameObject tile in AccessableBlocks)
         {
             if (tile != null)
@@ -126,6 +131,8 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     private void StopHighlightingTiles()
     {
+        lastHighlightedRobot = null;
+
         for (int i = 0; i < noOfDirections; i++)
         {
             if (AccessableBlocks[i] != null)
