@@ -4,16 +4,16 @@ public class RobotSidewaysMovement : Robot
 {
     protected override void GetAccessibleBlocks()
     {
-        int leftTempX = (int)currentGridPosition.x - 1;
-        int rightTempX = (int)currentGridPosition.x + 1;
+        int leftTempX = (int)CurrentGridPosition.x - 1;
+        int rightTempX = (int)CurrentGridPosition.x + 1;
 
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject right = null, left = null;
 
         if (rightTempX >= 0 && rightTempX <= gridSystem.tileSetSize)
-            right = gridSystem.tileGameObjects[rightTempX + (int)currentGridPosition.y * gridSystem.tileSetSize];
+            right = gridSystem.tileGameObjects[rightTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
         if (leftTempX >= 0 && leftTempX <= gridSystem.tileSetSize)
-            left = gridSystem.tileGameObjects[leftTempX + (int)currentGridPosition.y * gridSystem.tileSetSize];
+            left = gridSystem.tileGameObjects[leftTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
 
         if (right != null && right.GetComponent<TileScript>().canWalk)
         {
@@ -40,28 +40,25 @@ public class RobotSidewaysMovement : Robot
         else if (AccessableBlocks[1] == tile)
             x = -1;
 
-        Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y);
+        Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y);
         if (tile.GetComponent<TileScript>().IsOccupied)
         {
-            Robot[] robots = FindObjectsOfType<Robot>();
-            foreach (Robot robot in robots)
+            foreach (IPushable pushable in pushables)
             {
-                if (robot.currentGridPosition == tempGridPosition)
+                if (pushable.CurrentGridPosition == tempGridPosition)
                 {
-                    if (robot.Move(x, 0))
+                    if (pushable.Push(x, 0))
                         break;
-                    else
-                        return;
                 }
             }
-        }
 
-        currentGridPosition = tempGridPosition;
-        Vector3 updatedTilePositon = tile.transform.position;
-        transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
-        currentTile.GetComponent<TileScript>().Vacate();
-        tile.GetComponent<TileScript>().Occupy(gameObject);
-        currentTile = tile;
-        GetAccessibleBlocks();
+            CurrentGridPosition = tempGridPosition;
+            Vector3 updatedTilePositon = tile.transform.position;
+            transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
+            currentTile.GetComponent<TileScript>().vacateAction(gameObject);
+            tile.GetComponent<TileScript>().occupyAction(gameObject);
+            currentTile = tile;
+            GetAccessibleBlocks();
+        }
     }
 }

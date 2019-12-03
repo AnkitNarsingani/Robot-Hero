@@ -1,0 +1,514 @@
+fileFormatVersion: 2
+guid: 090e87e3e7a275040aa741303806119e
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: BackLegs
+    100002: Body1
+    100004: Cap
+    100006: Cap 1
+    100008: FrontLegs
+    100010: Head
+    100012: Head_part_L
+    100014: Head_part_R
+    100016: L_axle_front
+    100018: L_axle_rear
+    100020: L_Extended_front
+    100022: L_Extended_rear
+    100024: L_foot_front
+    100026: L_foot_Rear
+    100028: L_Leg_front
+    100030: L_Leg_rear
+    100032: LegJoint
+    100034: //RootNode
+    100036: polySurface568
+    100038: polySurface574
+    100040: polySurface577
+    100042: R_axle_front
+    100044: R_axle_rear
+    100046: R_Extended_front
+    100048: R_Extended_rear
+    100050: R_foot_front
+    100052: R_foot_Rear
+    100054: R_Leg_front
+    100056: R_Leg_rear
+    100058: Screen1
+    100060: transform1
+    100062: transform2
+    400000: BackLegs
+    400002: Body1
+    400004: Cap
+    400006: Cap 1
+    400008: FrontLegs
+    400010: Head
+    400012: Head_part_L
+    400014: Head_part_R
+    400016: L_axle_front
+    400018: L_axle_rear
+    400020: L_Extended_front
+    400022: L_Extended_rear
+    400024: L_foot_front
+    400026: L_foot_Rear
+    400028: L_Leg_front
+    400030: L_Leg_rear
+    400032: LegJoint
+    400034: //RootNode
+    400036: polySurface568
+    400038: polySurface574
+    400040: polySurface577
+    400042: R_axle_front
+    400044: R_axle_rear
+    400046: R_Extended_front
+    400048: R_Extended_rear
+    400050: R_foot_front
+    400052: R_foot_Rear
+    400054: R_Leg_front
+    400056: R_Leg_rear
+    400058: Screen1
+    400060: transform1
+    400062: transform2
+    2100000: pasted__lambert36
+    2100002: lambert36
+    2300000: Body1
+    2300002: Cap 1
+    2300004: Head
+    2300006: Head_part_L
+    2300008: Head_part_R
+    2300010: L_axle_front
+    2300012: L_axle_rear
+    2300014: L_Extended_front
+    2300016: L_Extended_rear
+    2300018: L_foot_front
+    2300020: L_foot_Rear
+    2300022: L_Leg_front
+    2300024: L_Leg_rear
+    2300026: LegJoint
+    2300028: polySurface574
+    2300030: R_axle_front
+    2300032: R_axle_rear
+    2300034: R_Extended_front
+    2300036: R_Extended_rear
+    2300038: R_foot_front
+    2300040: R_foot_Rear
+    2300042: R_Leg_front
+    2300044: R_Leg_rear
+    2300046: Screen1
+    3300000: Body1
+    3300002: Cap 1
+    3300004: Head
+    3300006: Head_part_L
+    3300008: Head_part_R
+    3300010: L_axle_front
+    3300012: L_axle_rear
+    3300014: L_Extended_front
+    3300016: L_Extended_rear
+    3300018: L_foot_front
+    3300020: L_foot_Rear
+    3300022: L_Leg_front
+    3300024: L_Leg_rear
+    3300026: LegJoint
+    3300028: polySurface574
+    3300030: R_axle_front
+    3300032: R_axle_rear
+    3300034: R_Extended_front
+    3300036: R_Extended_rear
+    3300038: R_foot_front
+    3300040: R_foot_Rear
+    3300042: R_Leg_front
+    3300044: R_Leg_rear
+    3300046: Screen1
+    4300000: LegJoint
+    4300002: Body1
+    4300004: Head
+    4300006: polySurface574
+    4300008: Cap
+    4300010: Screen1
+    4300012: Head_part_L
+    4300014: Head_part_R
+    4300016: L_Leg_front
+    4300018: L_foot_front
+    4300020: L_axle_front
+    4300022: L_Extended_front
+    4300024: R_Leg_front
+    4300026: R_foot_front
+    4300028: R_axle_front
+    4300030: R_Extended_front
+    4300032: L_Leg_rear
+    4300034: L_foot_Rear
+    4300036: L_axle_rear
+    4300038: L_Extended_rear
+    4300040: R_Leg_rear
+    4300042: R_foot_Rear
+    4300044: R_axle_rear
+    4300046: R_Extended_rear
+    7400000: Front Flap Open
+    7400002: Robot Down Movement
+    7400004: Robot Front Movement
+    7400006: Flap Front Movement
+    7400008: Front Flap Close
+    7400010: Robot Up Movement
+    7400012: Back Flap Open
+    7400014: Robot Back Movement
+    7400016: Flap Back Movement
+    7400018: Back Flap Close
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Robot Down Movement
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Front Flap Open
+      takeName: Take 001
+      firstFrame: 61
+      lastFrame: 121
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Robot Front Movement
+      takeName: Take 001
+      firstFrame: 122
+      lastFrame: 182
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Flap Front Movement
+      takeName: Take 001
+      firstFrame: 183
+      lastFrame: 243
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Front Flap Close
+      takeName: Take 001
+      firstFrame: 244
+      lastFrame: 304
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Robot Up Movement
+      takeName: Take 001
+      firstFrame: 305
+      lastFrame: 365
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Back Flap Open
+      takeName: Take 001
+      firstFrame: 427
+      lastFrame: 487
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Robot Back Movement
+      takeName: Take 001
+      firstFrame: 488
+      lastFrame: 548
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Flap Back Movement
+      takeName: Take 001
+      firstFrame: 549
+      lastFrame: 609
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Back Flap Close
+      takeName: Take 001
+      firstFrame: 610
+      lastFrame: 670
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 40
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 0
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 1
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

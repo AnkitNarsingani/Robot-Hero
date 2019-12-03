@@ -4,22 +4,22 @@ public class RobotAlternateMovement : Robot
 {
     protected override void GetAccessibleBlocks()
     {
-        int upTempY = (int)currentGridPosition.y + 2;
-        int downTempY = (int)currentGridPosition.y - 2;
-        int leftTempX = (int)currentGridPosition.x - 2;
-        int rightTempX = (int)currentGridPosition.x + 2;
+        int upTempY = (int)CurrentGridPosition.y + 2;
+        int downTempY = (int)CurrentGridPosition.y - 2;
+        int leftTempX = (int)CurrentGridPosition.x - 2;
+        int rightTempX = (int)CurrentGridPosition.x + 2;
 
         GameObject up = null, down = null, left = null, right = null;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
 
         if(upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
-            up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize];
+            up = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
         if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
-            down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize];
+            down = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
         if (rightTempX >= 0 && rightTempX <= gridSystem.tileSetSize)
-            right = gridSystem.tileGameObjects[rightTempX + (int)currentGridPosition.y * gridSystem.tileSetSize];
+            right = gridSystem.tileGameObjects[rightTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
         if (leftTempX >= 0 && leftTempX <= gridSystem.tileSetSize)
-            left = gridSystem.tileGameObjects[leftTempX + (int)currentGridPosition.y * gridSystem.tileSetSize];
+            left = gridSystem.tileGameObjects[leftTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
 
 
         if (up != null && up.GetComponent<TileScript>().canWalk)
@@ -69,28 +69,25 @@ public class RobotAlternateMovement : Robot
         else
             x = -2;
 
-        Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
+        Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y + y);
 
         if (tile.GetComponent<TileScript>().IsOccupied)
         {
-            Robot[] robots = FindObjectsOfType<Robot>();
-            foreach (Robot robot in robots)
+            foreach (IPushable pushable in pushables)
             {
-                if (robot.currentGridPosition == tempGridPosition)
+                if (pushable.CurrentGridPosition == tempGridPosition)
                 {
-                    if (robot.Move(x == 0 ? x : x > 0 ? x - 1 : x + 1, y == 0 ? y : y > 0 ? y - 1 : y + 1))
+                    if (pushable.Push(x == 0 ? x : x > 0 ? x - 1 : x + 1, y == 0 ? y : y > 0 ? y - 1 : y + 1))
                         break;
-                    else
-                        return;
                 }
             }
         }
 
-        currentGridPosition = tempGridPosition;
+        CurrentGridPosition = tempGridPosition;
         Vector3 updatedTilePositon = tile.transform.position;
         transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
-        currentTile.GetComponent<TileScript>().Vacate();
-        tile.GetComponent<TileScript>().Occupy(gameObject);
+        currentTile.GetComponent<TileScript>().vacateAction(gameObject);
+        tile.GetComponent<TileScript>().occupyAction(gameObject);
         currentTile = tile;
         GetAccessibleBlocks();
     }

@@ -4,6 +4,9 @@ public class TileScript : MonoBehaviour
 {
     [SerializeField] public bool canWalk;
     protected bool isOccupied = false;
+    public delegate void Action(GameObject occupiedRobot);
+    public Action occupyAction;
+    public Action vacateAction;
 
     public bool IsOccupied
     {
@@ -12,9 +15,17 @@ public class TileScript : MonoBehaviour
             return isOccupied;
         }
     }
-    public virtual void Occupy()
+
+    private void OnEnable()
     {
-        isOccupied = true;
+        occupyAction += Occupy;
+        vacateAction += Vacate;
+    }
+
+    private void OnDisable()
+    {
+        occupyAction -= Occupy;
+        vacateAction -= Vacate;
     }
 
     public virtual void Occupy(GameObject occupiedRobot)
@@ -22,7 +33,7 @@ public class TileScript : MonoBehaviour
         isOccupied = true;
     }
 
-    public virtual void Vacate()
+    public virtual void Vacate(GameObject occupiedRobot)
     {
         isOccupied = false;
     }

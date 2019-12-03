@@ -1,20 +1,19 @@
 ﻿using UnityEngine;
-using UnityEngine.Events;
 
 public class RobotBackForthMovement : Robot
 {
     protected override void GetAccessibleBlocks()
     {
-        int upTempY = (int)currentGridPosition.y + 1;
-        int downTempY = (int)currentGridPosition.y - 1;
+        int upTempY = (int)CurrentGridPosition.y + 1;
+        int downTempY = (int)CurrentGridPosition.y - 1;
 
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject up = null, down = null;
 
-        if(upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
-            up = gridSystem.tileGameObjects[(int)currentGridPosition.x + upTempY * gridSystem.tileSetSize];
+        if (upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
+            up = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
         if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
-            down = gridSystem.tileGameObjects[(int)currentGridPosition.x + downTempY * gridSystem.tileSetSize];
+            down = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
 
         if (up != null && up.GetComponent<TileScript>().canWalk)
         {
@@ -41,27 +40,23 @@ public class RobotBackForthMovement : Robot
         else if (AccessableBlocks[1] == tile)
             y = -1;
 
-        Vector2 tempGridPosition = new Vector2(currentGridPosition.x, currentGridPosition.y + y);
+        Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x, CurrentGridPosition.y + y);
         if (tile.GetComponent<TileScript>().IsOccupied)
         {
-            Robot[] robots = FindObjectsOfType<Robot>();
-            foreach (Robot robot in robots)
+            foreach (IPushable pushable in pushables)
             {
-                if (robot.currentGridPosition == tempGridPosition)
+                if (pushable.CurrentGridPosition == tempGridPosition)
                 {
-                    if (robot.Move(0, y))
+                    if (pushable.Push(0, y))
                         break;
-                    else
-                        return;
                 }
             }
         }
-
-        currentGridPosition = tempGridPosition;
+        CurrentGridPosition = tempGridPosition;
         Vector3 updatedTilePositon = tile.transform.position;
         transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
-        currentTile.GetComponent<TileScript>().Vacate();
-        tile.GetComponent<TileScript>().Occupy(gameObject);
+        currentTile.GetComponent<TileScript>().vacateAction(gameObject);
+        tile.GetComponent<TileScript>().occupyAction(gameObject);
         currentTile = tile;
         playerMoveEvent.Invoke();
         GetAccessibleBlocks();

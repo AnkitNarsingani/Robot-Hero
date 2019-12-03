@@ -5,34 +5,24 @@ using UnityEditor;
 [CanEditMultipleObjects]
 public class GameTilesInspector : Editor
 {
-    private SerializedProperty canWalk;
-    private SerializedProperty door;
+    protected SerializedProperty canWalk;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-
         canWalk = serializedObject.FindProperty("canWalk");
-        door = serializedObject.FindProperty("door");
     }
 
     public override void OnInspectorGUI()
     {
-        serializedObject.Update();
         EditorGUILayout.PropertyField(canWalk, new GUIContent("Can Walk"));
-        EditorGUILayout.PropertyField(canWalk, new GUIContent("Is Unlocked"));
-        if (door != null)
-            EditorGUILayout.PropertyField(door, new GUIContent("Door"));
-        serializedObject.ApplyModifiedProperties();
 
-        EditorGUILayout.Space();
-        EditorGUILayout.Space();
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         if (GUILayout.Button("Revert Tile"))
             Revert();
     }
 
-    void Revert()
+    protected void Revert()
     {
         TileScript tileScript = target as TileScript;
         GameObject newTile = GameObject.CreatePrimitive(PrimitiveType.Cube);

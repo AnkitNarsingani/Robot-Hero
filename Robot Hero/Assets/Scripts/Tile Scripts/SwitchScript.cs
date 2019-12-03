@@ -10,11 +10,11 @@ public class SwitchScript : TileScript
     {
         isOccupied = true;
         if (door != null)
-            door.IsUnlocked = true;
+            door.isUnlocked = true;
         else
         {
 #if UNITY_EDITOR
-            Debug.Log("Door to unlock not assigned");
+            Debug.Log("Door not assigned to switch " + gameObject.name);
 #endif
         }
     }

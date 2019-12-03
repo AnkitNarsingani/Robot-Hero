@@ -4,21 +4,11 @@ public class DoorScript : TileScript
 {
     int noOfRobotsFinished = 0;
 
-    [SerializeField] public bool IsUnlocked
-    {
-        get
-        {
-            return canWalk;
-        }
-        set
-        {
-            canWalk = value;
-        }
-    }
+    [SerializeField] public bool isUnlocked;
 
     public override void Occupy(GameObject occupiedRobot)
     {
-        if (IsUnlocked)
+        if (isUnlocked)
         {
             Robot robot = occupiedRobot.GetComponent<Robot>();
 

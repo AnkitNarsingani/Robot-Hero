@@ -1,23 +1,27 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class Robot : MonoBehaviour
+public abstract class Robot : MonoBehaviour, IPushable
 {
     [SerializeField] protected Vector2 staringGridPosition;
-    [SerializeField] public Vector2 currentGridPosition;
+    [SerializeField] public Vector2 CurrentGridPosition { get; protected set; }
     [SerializeField] protected float maxInaccuracy = 1;
     [SerializeField] protected int noOfDirections = 2;
     [SerializeField] protected GameObject[] AccessableBlocks;
     [SerializeField] protected Material[] defaultMaterials;
     [SerializeField] protected UnityEvent playerMoveEvent;
 
-    [HideInInspector] public GameObject currentTile;
+    [ReadOnly] public GameObject currentTile;
 
+    protected Animator animator;
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
     private bool raycastHitObject = false;
 
     private Material highlightedMaterial;
+
+    public static IPushable[] pushables;
 
     protected abstract void GetAccessibleBlocks();
 
@@ -27,14 +31,24 @@ public abstract class Robot : MonoBehaviour
     {
         AccessableBlocks = new GameObject[noOfDirections];
         defaultMaterials = new Material[noOfDirections];
-        currentGridPosition = staringGridPosition;
+        CurrentGridPosition = staringGridPosition;
+        pushables = FindAllPushables();
         highlightedMaterial = Resources.Load("Highlight Tile") as Material;
+        animator = GetComponentInChildren<Animator>();
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         currentTile = gridSystem.tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize];
-        currentTile.GetComponent<TileScript>().Occupy(gameObject);
+
+        if (currentTile.GetComponent<TileScript>().occupyAction != null)
+            currentTile.GetComponent<TileScript>().occupyAction(gameObject);
+
         Vector3 startingTilePositon = currentTile.transform.position;
         transform.position = new Vector3(startingTilePositon.x, transform.position.y, startingTilePositon.z);
         GetAccessibleBlocks();
+    }
+
+    private void OnEnable()
+    {
+
     }
 
     protected void Update()
@@ -132,9 +146,15 @@ public abstract class Robot : MonoBehaviour
         return maxInaccuracy + 1;
     }
 
-    public bool Move(float x, float y)
+    private IPushable[] FindAllPushables()
     {
-        Vector2 tempGridPosition = new Vector2(currentGridPosition.x + x, currentGridPosition.y + y);
+        IPushable[] pushables = FindObjectsOfType<MonoBehaviour>().OfType<IPushable>().ToArray();
+        return pushables;
+    }
+
+    public bool Push(float x, float y)
+    {
+        Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y + y);
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
         TileScript updatedTileScript = updatedTile.GetComponent<TileScript>();
@@ -142,20 +162,19 @@ public abstract class Robot : MonoBehaviour
         {
             if (updatedTileScript.IsOccupied)
             {
-                Robot[] robots = FindObjectsOfType<Robot>();
-                foreach (Robot robot in robots)
+                foreach (IPushable pushable in pushables)
                 {
-                    if (robot.currentGridPosition == tempGridPosition)
+                    if (pushable.CurrentGridPosition == tempGridPosition)
                     {
-                        if (!robot.Move(x, y))
+                        if (!pushable.Push(x, y))
                             return false;
                     }
                 }
             }
-            currentGridPosition = tempGridPosition;
+            CurrentGridPosition = tempGridPosition;
             transform.position = new Vector3(updatedTile.transform.position.x, transform.position.y, updatedTile.transform.position.z);
-            currentTile.GetComponent<TileScript>().Vacate();
-            updatedTile.GetComponent<TileScript>().Occupy(gameObject);
+            currentTile.GetComponent<TileScript>().vacateAction(gameObject);
+            updatedTile.GetComponent<TileScript>().occupyAction(gameObject);
             currentTile = updatedTile;
             GetAccessibleBlocks();
             return true;
