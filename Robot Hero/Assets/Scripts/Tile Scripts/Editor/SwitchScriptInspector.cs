@@ -1,25 +1,24 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(DoorScript), false)]
+[CustomEditor(typeof(SwitchScript), true)]
 [CanEditMultipleObjects]
-public class DoorInspector : GameTilesInspector
+public class SwitchScriptInspector : GameTilesInspector
 {
-    private SerializedProperty isUnlocked;
+    private SerializedProperty doorEditor;
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        isUnlocked = serializedObject.FindProperty("isUnlocked");
+        doorEditor = serializedObject.FindProperty("door");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
-
         EditorGUILayout.Space();
 
-        EditorGUILayout.PropertyField(isUnlocked, new GUIContent("Is Unlocked"));
+        EditorGUILayout.PropertyField(doorEditor, new GUIContent("Door"));
 
         base.OnInspectorGUI();  
         serializedObject.ApplyModifiedProperties();

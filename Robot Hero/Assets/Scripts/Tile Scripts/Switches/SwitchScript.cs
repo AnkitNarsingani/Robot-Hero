@@ -3,8 +3,7 @@
 public class SwitchScript : TileScript
 {
     [Header("The door this switch should Unlock")]
-    [SerializeField] private DoorScript door = null;
-
+    [SerializeField] protected DoorScript door = null;
 
     public override void Occupy(GameObject occupiedRobot)
     {

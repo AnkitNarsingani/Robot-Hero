@@ -14,8 +14,11 @@ public class GameTilesInspector : Editor
 
     public override void OnInspectorGUI()
     {
+        serializedObject.Update();
+
         EditorGUILayout.PropertyField(canWalk, new GUIContent("Can Walk"));
 
+        serializedObject.ApplyModifiedProperties();
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         if (GUILayout.Button("Revert Tile"))

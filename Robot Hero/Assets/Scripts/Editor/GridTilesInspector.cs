@@ -46,7 +46,8 @@ public class GridTilesInspector : Editor
             GameObject newTile = Instantiate(tileSelector.tileListScriptableObject.tilesList[index].tilePrefab, tileSelector.transform.position, Quaternion.identity);
             newTile.transform.localScale = tileSelector.transform.localScale;
             GridSystem gridSystem = FindObjectOfType<GridSystem>();
-            newTile.transform.parent = gridSystem.transform; 
+            newTile.transform.parent = gridSystem.transform;
+            newTile.name = newTile.name + " [" + tileSelector.positionOnGrid.x + "] [" + tileSelector.positionOnGrid.y + "]";
             gridSystem.tileGameObjects[(int)tileSelector.positionOnGrid.x + (int)tileSelector.positionOnGrid.y * gridSystem.tileSetSize] = newTile;
             Undo.RegisterCreatedObjectUndo(newTile, "Object " + newTile.name);
             Undo.DestroyObjectImmediate(tileSelector.gameObject);           
