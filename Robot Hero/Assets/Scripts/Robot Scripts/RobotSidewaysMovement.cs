@@ -32,7 +32,7 @@ public class RobotSidewaysMovement : Robot
             AccessableBlocks[1] = null;
     }
 
-    public override void Move(GameObject tile)
+    public override System.Collections.IEnumerator Move(GameObject tile)
     {
         float x = 0;
         if (AccessableBlocks[0] == tile)
@@ -51,7 +51,7 @@ public class RobotSidewaysMovement : Robot
                         break;
                 }
             }
-
+            yield return null;
             CurrentGridPosition = tempGridPosition;
             Vector3 updatedTilePositon = tile.transform.position;
             transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);

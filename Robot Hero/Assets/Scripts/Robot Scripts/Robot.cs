@@ -5,6 +5,8 @@ using UnityEngine.Events;
 public abstract class Robot : MonoBehaviour, IPushable
 {
     [SerializeField] protected Vector2 staringGridPosition;
+    [SerializeField] protected float robotSpeed;
+    [SerializeField] protected float multiplier;
     [SerializeField] public Vector2 CurrentGridPosition { get; protected set; }
     [SerializeField] protected float maxInaccuracy = 1;
     [SerializeField] protected int noOfDirections = 2;
@@ -12,7 +14,7 @@ public abstract class Robot : MonoBehaviour, IPushable
     [SerializeField] protected Material[] defaultMaterials;
     [SerializeField] protected UnityEvent playerMoveEvent;
 
-    [ReadOnly] public GameObject currentTile;
+    [HideInInspector] public GameObject currentTile;
 
     protected Animator animator;
     private Vector2 touchStartPos;
@@ -27,7 +29,7 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     protected abstract void GetAccessibleBlocks();
 
-    public abstract void Move(GameObject tile);
+    public abstract System.Collections.IEnumerator Move(GameObject tile);
 
     protected void Start()
     {
@@ -68,11 +70,15 @@ public abstract class Robot : MonoBehaviour, IPushable
             switch (touch.phase)
             {
                 case TouchPhase.Began:
+                    animator.SetBool("isTouched", true);
+
                     StartHighlightingTiles();
-                    touchStartPos = touch.position;
+                    touchStartPos = touch.position; 
                     break;
 
                 case TouchPhase.Ended:
+                    animator.SetBool("isTouched", false);
+
                     touchEndPos = touch.position;
                     if (touchStartPos != touchEndPos && touchStartPos != Vector2.zero)
                     {
@@ -92,7 +98,7 @@ public abstract class Robot : MonoBehaviour, IPushable
                         }
 
                         if (tileToMove != null)
-                            Move(tileToMove);
+                            StartCoroutine(Move(tileToMove));
                     }
                     raycastHitObject = false;
                     touchStartPos = Vector2.zero;

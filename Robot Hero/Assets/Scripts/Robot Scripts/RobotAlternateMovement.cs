@@ -56,7 +56,7 @@ public class RobotAlternateMovement : Robot
             AccessableBlocks[3] = null;
     }
 
-    public override void Move(GameObject tile)
+    public override System.Collections.IEnumerator Move(GameObject tile)
     {
         float y = 0, x = 0;
 
@@ -82,7 +82,7 @@ public class RobotAlternateMovement : Robot
                 }
             }
         }
-
+        yield return null;
         CurrentGridPosition = tempGridPosition;
         Vector3 updatedTilePositon = tile.transform.position;
         transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
