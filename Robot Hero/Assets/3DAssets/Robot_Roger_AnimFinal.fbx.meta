@@ -1,74 +1,78 @@
 fileFormatVersion: 2
-guid: bd44b037db20e1248b0ac6fe5e292b0c
+guid: ab3962ac808374142ba62d89ca40b35d
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: BackLegs
     100002: Body1
-    100004: Front_L
-    100006: Front_R
-    100008: FrontLegs
-    100010: Head
-    100012: LegJoint
-    100014: polySurface547
-    100016: polySurface548
-    100018: polySurface549
-    100020: polySurface550
-    100022: polySurface551
-    100024: polySurface552
-    100026: polySurface553
-    100028: polySurface554
-    100030: polySurface555
-    100032: polySurface556
-    100034: polySurface557
-    100036: polySurface558
-    100038: polySurface559
-    100040: polySurface560
-    100042: polySurface561
-    100044: polySurface562
-    100046: polySurface568
-    100048: polySurface573
-    100050: polySurface574
-    100052: polySurface576
-    100054: polySurface577
-    100056: polySurface578
-    100058: Rear_L
-    100060: Rear_R
-    100062: //RootNode
-    100064: Screen1
+    100004: Bottom
+    100006: Front_L
+    100008: Front_R
+    100010: FrontLegs
+    100012: Head
+    100014: LegJoint
+    100016: polySurface547
+    100018: polySurface548
+    100020: polySurface549
+    100022: polySurface550
+    100024: polySurface551
+    100026: polySurface552
+    100028: polySurface553
+    100030: polySurface554
+    100032: polySurface555
+    100034: polySurface556
+    100036: polySurface557
+    100038: polySurface558
+    100040: polySurface559
+    100042: polySurface560
+    100044: polySurface561
+    100046: polySurface562
+    100048: polySurface568
+    100050: polySurface573
+    100052: polySurface574
+    100054: polySurface576
+    100056: polySurface577
+    100058: polySurface578
+    100060: Rear_L
+    100062: Rear_R
+    100064: //RootNode
+    100066: Screen1
+    100068: Top
     400000: BackLegs
     400002: Body1
-    400004: Front_L
-    400006: Front_R
-    400008: FrontLegs
-    400010: Head
-    400012: LegJoint
-    400014: polySurface547
-    400016: polySurface548
-    400018: polySurface549
-    400020: polySurface550
-    400022: polySurface551
-    400024: polySurface552
-    400026: polySurface553
-    400028: polySurface554
-    400030: polySurface555
-    400032: polySurface556
-    400034: polySurface557
-    400036: polySurface558
-    400038: polySurface559
-    400040: polySurface560
-    400042: polySurface561
-    400044: polySurface562
-    400046: polySurface568
-    400048: polySurface573
-    400050: polySurface574
-    400052: polySurface576
-    400054: polySurface577
-    400056: polySurface578
-    400058: Rear_L
-    400060: Rear_R
-    400062: //RootNode
-    400064: Screen1
+    400004: Bottom
+    400006: Front_L
+    400008: Front_R
+    400010: FrontLegs
+    400012: Head
+    400014: LegJoint
+    400016: polySurface547
+    400018: polySurface548
+    400020: polySurface549
+    400022: polySurface550
+    400024: polySurface551
+    400026: polySurface552
+    400028: polySurface553
+    400030: polySurface554
+    400032: polySurface555
+    400034: polySurface556
+    400036: polySurface557
+    400038: polySurface558
+    400040: polySurface559
+    400042: polySurface560
+    400044: polySurface561
+    400046: polySurface562
+    400048: polySurface568
+    400050: polySurface573
+    400052: polySurface574
+    400054: polySurface576
+    400056: polySurface577
+    400058: polySurface578
+    400060: Rear_L
+    400062: Rear_R
+    400064: //RootNode
+    400066: Screen1
+    400068: Top
     2100000: pasted__lambert36
     2100002: lambert36
     2300000: Body1
@@ -121,31 +125,31 @@ ModelImporter:
     3300044: polySurface577
     3300046: polySurface578
     3300048: Screen1
-    4300000: polySurface553
-    4300002: polySurface547
-    4300004: polySurface550
-    4300006: polySurface548
-    4300008: polySurface552
-    4300010: polySurface551
-    4300012: polySurface554
-    4300014: polySurface549
-    4300016: polySurface557
-    4300018: polySurface556
-    4300020: polySurface560
-    4300022: polySurface559
-    4300024: polySurface561
-    4300026: polySurface555
-    4300028: polySurface558
-    4300030: polySurface562
-    4300032: polySurface568
-    4300034: polySurface577
-    4300036: polySurface574
-    4300038: polySurface573
-    4300040: polySurface576
-    4300042: polySurface578
-    4300044: Screen1
-    4300046: Body1
-    4300048: LegJoint
+    4300000: polySurface568
+    4300002: polySurface577
+    4300004: polySurface574
+    4300006: polySurface573
+    4300008: polySurface576
+    4300010: polySurface578
+    4300012: Screen1
+    4300014: Body1
+    4300016: LegJoint
+    4300018: polySurface553
+    4300020: polySurface547
+    4300022: polySurface550
+    4300024: polySurface548
+    4300026: polySurface552
+    4300028: polySurface551
+    4300030: polySurface554
+    4300032: polySurface549
+    4300034: polySurface557
+    4300036: polySurface556
+    4300038: polySurface560
+    4300040: polySurface559
+    4300042: polySurface561
+    4300044: polySurface555
+    4300046: polySurface558
+    4300048: polySurface562
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -177,7 +181,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 37
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -199,7 +203,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
   importAnimation: 0
