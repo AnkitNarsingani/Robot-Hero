@@ -5,8 +5,7 @@ using UnityEngine.Events;
 public abstract class Robot : MonoBehaviour, IPushable
 {
     [SerializeField] protected Vector2 staringGridPosition;
-    [SerializeField] protected float robotSpeed;
-    [SerializeField] protected float multiplier;
+    [SerializeField] protected float robotSpeed = 5f;
     [SerializeField] public Vector2 CurrentGridPosition { get; protected set; }
     [SerializeField] protected float maxInaccuracy = 1;
     [SerializeField] protected int noOfDirections = 2;
@@ -17,11 +16,13 @@ public abstract class Robot : MonoBehaviour, IPushable
     [HideInInspector] public GameObject currentTile;
 
     protected Animator animator;
+    protected Transform robotHead;
+    protected Transform robotLegs;
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
     private bool raycastHitObject = false;
 
-    protected static GameObject lastHighlightedRobot;
+    protected static MeshRenderer[] lastHighlightedTiles = null;
 
     private Material highlightedMaterial;
 
@@ -39,6 +40,8 @@ public abstract class Robot : MonoBehaviour, IPushable
         pushables = FindAllPushables();
         highlightedMaterial = Resources.Load("Highlight Tile") as Material;
         animator = GetComponentInChildren<Animator>();
+        robotHead = transform.Find("Top");
+        robotLegs = transform.Find("Bottom");
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         currentTile = gridSystem.tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize];
 
@@ -123,27 +126,38 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     private void StartHighlightingTiles()
     {
-        if (lastHighlightedRobot != null)
-            lastHighlightedRobot.GetComponent<Robot>().StopHighlightingTiles();
+        if (lastHighlightedTiles != null)
+            StopHighlightingTiles(ref lastHighlightedTiles, noOfDirections);
 
-        lastHighlightedRobot = gameObject;
-
-        foreach (GameObject tile in AccessableBlocks)
+        lastHighlightedTiles = new MeshRenderer[noOfDirections];
+        for (int i = 0; i < noOfDirections; i++)
         {
-            if (tile != null)
-                tile.GetComponent<MeshRenderer>().material = highlightedMaterial;
+            if (AccessableBlocks[i] != null)
+            {
+                lastHighlightedTiles[i] = AccessableBlocks[i].GetComponent<MeshRenderer>();
+                AccessableBlocks[i].GetComponent<MeshRenderer>().material = highlightedMaterial;
+            }       
         }
     }
 
-    private void StopHighlightingTiles()
+    public void StopHighlightingTiles()
     {
-        lastHighlightedRobot = null;
-
         for (int i = 0; i < noOfDirections; i++)
         {
             if (AccessableBlocks[i] != null)
                 AccessableBlocks[i].GetComponent<MeshRenderer>().material = defaultMaterials[i];
         }
+    }
+
+    private void StopHighlightingTiles(ref MeshRenderer[] highlightedTiles, int directions)
+    {   
+        for (int i = 0; i < directions; i++)
+        {
+            if (highlightedTiles[i] != null)
+                highlightedTiles[i].material = defaultMaterials[i];
+        }
+
+        highlightedTiles = null;
     }
 
     private float GetTileDistance(GameObject tile, Vector2 touchPosition)

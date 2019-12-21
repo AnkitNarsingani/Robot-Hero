@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class RobotBackForthMovement : Robot
 {
@@ -32,38 +33,6 @@ public class RobotBackForthMovement : Robot
             AccessableBlocks[1] = null;
     }
 
-    //public override void Move(GameObject tile)
-    //{
-    //    float y = 0;
-    //    if (AccessableBlocks[0] == tile)
-    //        y = 1;
-    //    else if (AccessableBlocks[1] == tile)
-    //        y = -1;
-
-    //    animator.SetFloat("Move", y);
-
-    //    Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x, CurrentGridPosition.y + y);
-    //    if (tile.GetComponent<TileScript>().IsOccupied)
-    //    {
-    //        foreach (IPushable pushable in pushables)
-    //        {
-    //            if (pushable.CurrentGridPosition == tempGridPosition)
-    //            {
-    //                if (pushable.Push(0, y))
-    //                    break;
-    //            }
-    //        }
-    //    }
-    //    CurrentGridPosition = tempGridPosition;
-    //    Vector3 updatedTilePositon = tile.transform.position;
-    //    transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
-    //    currentTile.GetComponent<TileScript>().vacateAction(gameObject);
-    //    tile.GetComponent<TileScript>().occupyAction(gameObject);
-    //    currentTile = tile;
-    //    playerMoveEvent.Invoke();
-    //    GetAccessibleBlocks();
-    //}
-
     public override System.Collections.IEnumerator Move(GameObject tile)
     {
         float y = 0;
@@ -86,24 +55,31 @@ public class RobotBackForthMovement : Robot
         }
 
         animator.SetFloat("Move", y);
-
-        yield return new WaitForSeconds(0.5f);
+        
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
         CurrentGridPosition = tempGridPosition;
-        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
+        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);    
 
-        while(transform.position.x != updatedTilePositon.x || transform.position.z != updatedTilePositon.z)
-        {
-            transform.position = Vector3.Lerp(transform.position, updatedTilePositon, robotSpeed * Time.deltaTime);
-            yield return null;
-        }
+        robotHead.parent = null;
+        Vector3 updatedHeadPositon = new Vector3(robotHead.position.x, robotHead.position.y, robotHead.position.z + (y * 0.8f));
+        robotHead.DOMove(updatedHeadPositon, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        robotLegs.parent = null;
+        Vector3 updatedLegsPositon = new Vector3(robotLegs.position.x, robotLegs.position.y, robotLegs.position.z + (y * 0.8f));
+        robotLegs.DOMove(updatedLegsPositon, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        transform.position = updatedTilePositon;
+        robotHead.parent = transform;
+        robotLegs.parent = transform;
         animator.SetFloat("Move", 0);
-        //transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
+        animator.SetTrigger("GoToIdle");
+
         currentTile.GetComponent<TileScript>().vacateAction(gameObject);
         tile.GetComponent<TileScript>().occupyAction(gameObject);
         currentTile = tile;
         playerMoveEvent.Invoke();
+        StopHighlightingTiles();
         GetAccessibleBlocks();
     }
 }

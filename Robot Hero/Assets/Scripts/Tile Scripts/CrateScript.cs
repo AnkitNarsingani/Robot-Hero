@@ -6,7 +6,7 @@ public class CrateScript : MonoBehaviour, IPushable
 
     public Vector2 CurrentGridPosition { get; private set; }
 
-    [ReadOnly] public GameObject currentTile;
+    public GameObject currentTile;
 
     void Start()
     {
