@@ -22,8 +22,6 @@ public abstract class Robot : MonoBehaviour, IPushable
     private Vector2 touchEndPos;
     private bool raycastHitObject = false;
 
-    protected static MeshRenderer[] lastHighlightedTiles = null;
-
     private Material highlightedMaterial;
 
     public static IPushable[] pushables;
@@ -76,11 +74,13 @@ public abstract class Robot : MonoBehaviour, IPushable
                     animator.SetBool("isTouched", true);
 
                     StartHighlightingTiles();
-                    touchStartPos = touch.position; 
+                    touchStartPos = touch.position;
                     break;
 
                 case TouchPhase.Ended:
                     animator.SetBool("isTouched", false);
+
+                    StopHighlightingTiles();
 
                     touchEndPos = touch.position;
                     if (touchStartPos != touchEndPos && touchStartPos != Vector2.zero)
@@ -126,38 +126,20 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     private void StartHighlightingTiles()
     {
-        if (lastHighlightedTiles != null)
-            StopHighlightingTiles(ref lastHighlightedTiles, noOfDirections);
-
-        lastHighlightedTiles = new MeshRenderer[noOfDirections];
         for (int i = 0; i < noOfDirections; i++)
         {
             if (AccessableBlocks[i] != null)
-            {
-                lastHighlightedTiles[i] = AccessableBlocks[i].GetComponent<MeshRenderer>();
                 AccessableBlocks[i].GetComponent<MeshRenderer>().material = highlightedMaterial;
-            }       
         }
     }
 
-    public void StopHighlightingTiles()
+    private void StopHighlightingTiles()
     {
         for (int i = 0; i < noOfDirections; i++)
         {
             if (AccessableBlocks[i] != null)
                 AccessableBlocks[i].GetComponent<MeshRenderer>().material = defaultMaterials[i];
         }
-    }
-
-    private void StopHighlightingTiles(ref MeshRenderer[] highlightedTiles, int directions)
-    {   
-        for (int i = 0; i < directions; i++)
-        {
-            if (highlightedTiles[i] != null)
-                highlightedTiles[i].material = defaultMaterials[i];
-        }
-
-        highlightedTiles = null;
     }
 
     private float GetTileDistance(GameObject tile, Vector2 touchPosition)

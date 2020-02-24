@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DeveloperDescription: The number of steps given to the player at the start of the
     game.
-  Value: 22
+  Value: 3
