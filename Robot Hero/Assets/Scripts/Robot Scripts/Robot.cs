@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public abstract class Robot : MonoBehaviour, IPushable
 {
@@ -181,7 +182,8 @@ public abstract class Robot : MonoBehaviour, IPushable
                 }
             }
             CurrentGridPosition = tempGridPosition;
-            transform.position = new Vector3(updatedTile.transform.position.x, transform.position.y, updatedTile.transform.position.z);
+            Vector3 updatedTilePositon = new Vector3(updatedTileScript.transform.position.x, transform.position.y, updatedTileScript.transform.position.z);
+            transform.DOMove(updatedTilePositon, 0.2f);
             currentTile.GetComponent<TileScript>().vacateAction(gameObject);
             updatedTile.GetComponent<TileScript>().occupyAction(gameObject);
             currentTile = updatedTile;
