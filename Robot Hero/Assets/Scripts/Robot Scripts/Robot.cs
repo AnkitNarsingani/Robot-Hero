@@ -7,6 +7,7 @@ public abstract class Robot : MonoBehaviour, IPushable
 {
     [SerializeField] protected Vector2 staringGridPosition;
     [SerializeField] protected float robotSpeed = 5f;
+    [SerializeField] public bool isMoving = false;
     [SerializeField] public Vector2 CurrentGridPosition { get; protected set; }
     [SerializeField] protected float maxInaccuracy = 1;
     [SerializeField] protected int noOfDirections = 2;
@@ -64,6 +65,8 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     protected void TakeInput()
     {
+        if (isMoving) return;
+
         CheckRaycast();
 
         if (Input.touchCount > 0 && raycastHitObject)
@@ -164,6 +167,7 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     public bool Push(float x, float y)
     {
+        ChangeState(true);
         Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y + y);
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
@@ -183,7 +187,7 @@ public abstract class Robot : MonoBehaviour, IPushable
             }
             CurrentGridPosition = tempGridPosition;
             Vector3 updatedTilePositon = new Vector3(updatedTileScript.transform.position.x, transform.position.y, updatedTileScript.transform.position.z);
-            transform.DOMove(updatedTilePositon, 0.2f);
+            transform.DOMove(updatedTilePositon, 0.2f).OnComplete(() => ChangeState(false));
             currentTile.GetComponent<TileScript>().vacateAction(gameObject);
             updatedTile.GetComponent<TileScript>().occupyAction(gameObject);
             currentTile = updatedTile;
@@ -192,5 +196,10 @@ public abstract class Robot : MonoBehaviour, IPushable
         }
 
         return false;
+    }
+
+    protected void ChangeState(bool move)
+    {
+        isMoving = move;
     }
 }

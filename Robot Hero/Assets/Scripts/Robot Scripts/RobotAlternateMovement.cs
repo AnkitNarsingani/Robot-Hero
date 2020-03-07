@@ -12,7 +12,7 @@ public class RobotAlternateMovement : Robot
         GameObject up = null, down = null, left = null, right = null;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
 
-        if(upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
+        if (upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
             up = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
         if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
             down = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
@@ -38,7 +38,7 @@ public class RobotAlternateMovement : Robot
         else
             AccessableBlocks[1] = null;
 
-        
+
         if (right != null && right.GetComponent<TileScript>().canWalk)
         {
             AccessableBlocks[2] = right;
@@ -58,16 +58,14 @@ public class RobotAlternateMovement : Robot
 
     public override System.Collections.IEnumerator Move(GameObject tile)
     {
+        ChangeState(true);
+
         float y = 0, x = 0;
 
-        if (AccessableBlocks[0] == tile)
-            y = 2;
-        else if (AccessableBlocks[1] == tile)
-            y = -2;
-        else if (AccessableBlocks[2] == tile)
-            x = 2;
-        else
-            x = -2;
+        if (AccessableBlocks[0] == tile) y = 2;
+        else if (AccessableBlocks[1] == tile) y = -2;
+        else if (AccessableBlocks[2] == tile) x = 2;
+        else x = -2;
 
         Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y + y);
 
@@ -77,7 +75,8 @@ public class RobotAlternateMovement : Robot
             {
                 if (pushable.CurrentGridPosition == tempGridPosition)
                 {
-                    if (pushable.Push(x == 0 ? x : x > 0 ? x - 1 : x + 1, y == 0 ? y : y > 0 ? y - 1 : y + 1))
+                    if (pushable.Push(x == 0 ? x : x > 0 ? x - 1 : x + 1, 
+                        y == 0 ? y : y > 0 ? y - 1 : y + 1))
                         break;
                 }
             }
@@ -90,5 +89,6 @@ public class RobotAlternateMovement : Robot
         tile.GetComponent<TileScript>().occupyAction(gameObject);
         currentTile = tile;
         GetAccessibleBlocks();
+        ChangeState(false);
     }
 }

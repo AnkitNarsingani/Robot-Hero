@@ -35,6 +35,8 @@ public class RobotSidewaysMovement : Robot
 
     public override System.Collections.IEnumerator Move(GameObject tile)
     {
+        ChangeState(true);
+
         float x = 0;
         if (AccessableBlocks[0] == tile)    x = 1;
         else if (AccessableBlocks[1] == tile)   x = -1;
@@ -83,5 +85,6 @@ public class RobotSidewaysMovement : Robot
 
         playerMoveEvent.Invoke();
         GetAccessibleBlocks();
+        ChangeState(false);
     }
 }

@@ -35,9 +35,11 @@ public class RobotBackForthMovement : Robot
 
     public override System.Collections.IEnumerator Move(GameObject tile)
     {
+        ChangeState(true);
+
         float y = 0;
-        if (AccessableBlocks[0] == tile)    y = 1;
-        else if (AccessableBlocks[1] == tile)   y = -1;
+        if (AccessableBlocks[0] == tile) y = 1;
+        else if (AccessableBlocks[1] == tile) y = -1;
 
         Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x, CurrentGridPosition.y + y);
         if (tile.GetComponent<TileScript>().IsOccupied)
@@ -57,7 +59,7 @@ public class RobotBackForthMovement : Robot
         CurrentGridPosition = tempGridPosition;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
-        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);    
+        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
 
         robotHead.parent = null;
         Vector3 updatedHeadPositon = new Vector3(robotHead.position.x, robotHead.position.y, robotHead.position.z + (y * 0.8f));
@@ -83,5 +85,7 @@ public class RobotBackForthMovement : Robot
 
         playerMoveEvent.Invoke();
         GetAccessibleBlocks();
+
+        ChangeState(false);
     }
 }
