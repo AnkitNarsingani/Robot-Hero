@@ -35,11 +35,9 @@ public class RobotSidewaysMovement : Robot
 
     public override System.Collections.IEnumerator Move(GameObject tile)
     {
-        ChangeState(true);
-
         float x = 0;
-        if (AccessableBlocks[0] == tile)    x = 1;
-        else if (AccessableBlocks[1] == tile)   x = -1;
+        if (AccessableBlocks[0] == tile) x = 1;
+        else if (AccessableBlocks[1] == tile) x = -1;
 
         Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y);
         if (tile.GetComponent<TileScript>().IsOccupied)
@@ -57,7 +55,8 @@ public class RobotSidewaysMovement : Robot
         animator.SetFloat("Move", -x);
 
         CurrentGridPosition = tempGridPosition;
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+        yield return new WaitForSeconds(playerFlap.length);
+
 
         Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
 
@@ -85,6 +84,8 @@ public class RobotSidewaysMovement : Robot
 
         playerMoveEvent.Invoke();
         GetAccessibleBlocks();
-        ChangeState(false);
+
+        yield return new WaitForSeconds(0.7f);
+        isMoving = false;
     }
 }

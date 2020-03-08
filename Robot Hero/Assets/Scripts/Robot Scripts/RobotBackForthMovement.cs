@@ -35,8 +35,6 @@ public class RobotBackForthMovement : Robot
 
     public override System.Collections.IEnumerator Move(GameObject tile)
     {
-        ChangeState(true);
-
         float y = 0;
         if (AccessableBlocks[0] == tile) y = 1;
         else if (AccessableBlocks[1] == tile) y = -1;
@@ -86,6 +84,7 @@ public class RobotBackForthMovement : Robot
         playerMoveEvent.Invoke();
         GetAccessibleBlocks();
 
-        ChangeState(false);
+        yield return new WaitForSeconds(0.7f);
+        isMoving = false;
     }
 }

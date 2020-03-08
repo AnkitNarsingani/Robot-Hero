@@ -14,6 +14,7 @@ public abstract class Robot : MonoBehaviour, IPushable
     [SerializeField] protected GameObject[] AccessableBlocks;
     [SerializeField] protected Material[] defaultMaterials;
     [SerializeField] protected UnityEvent playerMoveEvent;
+    [SerializeField] protected AnimationClip playerFlap;
 
     [HideInInspector] public GameObject currentTile;
 
@@ -37,7 +38,7 @@ public abstract class Robot : MonoBehaviour, IPushable
         AccessableBlocks = new GameObject[noOfDirections];
         defaultMaterials = new Material[noOfDirections];
         CurrentGridPosition = staringGridPosition;
-        pushables = FindAllPushables();
+        if (pushables == null) pushables = FindAllPushables();
         highlightedMaterial = Resources.Load("Highlight Tile") as Material;
         animator = GetComponentInChildren<Animator>();
         robotHead = transform.Find("Top");
@@ -60,13 +61,12 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     protected void Update()
     {
-        TakeInput();
+        if (!isMoving)
+            TakeInput();
     }
 
     protected void TakeInput()
     {
-        if (isMoving) return;
-
         CheckRaycast();
 
         if (Input.touchCount > 0 && raycastHitObject)
@@ -75,6 +75,7 @@ public abstract class Robot : MonoBehaviour, IPushable
             switch (touch.phase)
             {
                 case TouchPhase.Began:
+
                     animator.SetBool("isTouched", true);
 
                     StartHighlightingTiles();
@@ -82,6 +83,7 @@ public abstract class Robot : MonoBehaviour, IPushable
                     break;
 
                 case TouchPhase.Ended:
+
                     animator.SetBool("isTouched", false);
 
                     StopHighlightingTiles();
@@ -105,7 +107,10 @@ public abstract class Robot : MonoBehaviour, IPushable
                         }
 
                         if (tileToMove != null)
+                        {
+                            isMoving = true;
                             StartCoroutine(Move(tileToMove));
+                        }
                     }
                     raycastHitObject = false;
                     touchStartPos = Vector2.zero;
@@ -167,7 +172,6 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     public bool Push(float x, float y)
     {
-        ChangeState(true);
         Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y + y);
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
         GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
@@ -187,7 +191,7 @@ public abstract class Robot : MonoBehaviour, IPushable
             }
             CurrentGridPosition = tempGridPosition;
             Vector3 updatedTilePositon = new Vector3(updatedTileScript.transform.position.x, transform.position.y, updatedTileScript.transform.position.z);
-            transform.DOMove(updatedTilePositon, 0.2f).OnComplete(() => ChangeState(false));
+            transform.DOMove(updatedTilePositon, 0.2f);
             currentTile.GetComponent<TileScript>().vacateAction(gameObject);
             updatedTile.GetComponent<TileScript>().occupyAction(gameObject);
             currentTile = updatedTile;
@@ -196,10 +200,5 @@ public abstract class Robot : MonoBehaviour, IPushable
         }
 
         return false;
-    }
-
-    protected void ChangeState(bool move)
-    {
-        isMoving = move;
     }
 }

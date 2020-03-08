@@ -58,8 +58,6 @@ public class RobotAlternateMovement : Robot
 
     public override System.Collections.IEnumerator Move(GameObject tile)
     {
-        ChangeState(true);
-
         float y = 0, x = 0;
 
         if (AccessableBlocks[0] == tile) y = 2;
@@ -75,7 +73,7 @@ public class RobotAlternateMovement : Robot
             {
                 if (pushable.CurrentGridPosition == tempGridPosition)
                 {
-                    if (pushable.Push(x == 0 ? x : x > 0 ? x - 1 : x + 1, 
+                    if (pushable.Push(x == 0 ? x : x > 0 ? x - 1 : x + 1,
                         y == 0 ? y : y > 0 ? y - 1 : y + 1))
                         break;
                 }
@@ -89,6 +87,5 @@ public class RobotAlternateMovement : Robot
         tile.GetComponent<TileScript>().occupyAction(gameObject);
         currentTile = tile;
         GetAccessibleBlocks();
-        ChangeState(false);
     }
 }
