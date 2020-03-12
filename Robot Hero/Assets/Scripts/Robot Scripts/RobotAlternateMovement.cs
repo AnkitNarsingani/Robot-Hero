@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class RobotAlternateMovement : Robot
 {
@@ -85,8 +86,12 @@ public class RobotAlternateMovement : Robot
         }
         yield return null;
         CurrentGridPosition = tempGridPosition;
-        Vector3 updatedTilePositon = tile.transform.position;
-        transform.position = new Vector3(updatedTilePositon.x, transform.position.y, updatedTilePositon.z);
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+
+        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
+        transform.DOJump(updatedTilePositon, 1f, 1, 0.25f);
+        yield return new WaitForSeconds(0.25f);
+
         currentTile.GetComponent<TileScript>().vacateAction(gameObject);
         tile.GetComponent<TileScript>().occupyAction(gameObject);
         currentTile = tile;

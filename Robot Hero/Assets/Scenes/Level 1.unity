@@ -131,19 +131,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a6de23a7a2e184daa149fe0454d5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  staringGridPosition: {x: 0, y: 0}
+  staringGridPosition: {x: 4, y: 3}
   robotSpeed: 5
   isMoving: 0
   maxInaccuracy: 1
-  noOfDirections: 2
+  noOfDirections: 4
   AccessableBlocks: []
-  defaultMaterials: []
+  defaultMaterials:
+  - {fileID: 2100000, guid: 627c212a089f83243aad97440482aca1, type: 2}
   playerMoveEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 916daff39e24327498d21760bb87a827, type: 2}
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  playerFlap: {fileID: 0}
   currentTile: {fileID: 0}
 --- !u!135 &21802784
 SphereCollider:
