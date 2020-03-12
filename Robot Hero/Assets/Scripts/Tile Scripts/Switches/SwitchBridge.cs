@@ -11,7 +11,7 @@ public class SwitchBridge : SwitchScript
         isOccupied = true;
 
         if (door != null)
-            door.isUnlocked = true;
+            door.Unlock();
         else
         {
 #if UNITY_EDITOR

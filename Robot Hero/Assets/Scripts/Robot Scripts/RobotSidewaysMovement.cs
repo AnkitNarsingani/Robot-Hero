@@ -27,7 +27,8 @@ public class RobotSidewaysMovement : Robot
         if (left != null && left.GetComponent<TileScript>().canWalk)
         {
             AccessableBlocks[1] = left;
-            defaultMaterials[1] = left.GetComponent<MeshRenderer>().material;
+            MeshRenderer mesh = left.GetComponent<MeshRenderer>();
+            if (mesh != null) defaultMaterials[1] = mesh.material;
         }
         else
             AccessableBlocks[1] = null;

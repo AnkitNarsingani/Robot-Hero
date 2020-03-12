@@ -3,13 +3,15 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17dd62f73d0ea534383e42578c314d2a, type: 3}
   m_Name: Switch Hold
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 1028032652903348, guid: 5cc5fa604c8ea6c4db7519340d600bd7, type: 2}
+  tilePrefab: {fileID: 1961087558497545629, guid: 5cc5fa604c8ea6c4db7519340d600bd7,
+    type: 3}
   canWalk: 1

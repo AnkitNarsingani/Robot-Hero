@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class SwitchDual : SwitchScript
 {
@@ -12,17 +13,19 @@ public class SwitchDual : SwitchScript
         if (robot is RobotSidewaysMovement)
         {
             sidewaysRobotSwitch = true;
+            transform.GetChild(0).DOMoveY(0, 0.25f);
         }
         else if (robot is RobotBackForthMovement)
         {
             backForthRobotSwitch = true;
+            transform.GetChild(1).DOMoveY(0, 0.25f);
         }
 
         isOccupied = true;
 
         if (sidewaysRobotSwitch && backForthRobotSwitch)
             if (door != null)
-                door.isUnlocked = true;
+                door.Unlock();
             else
             {
 #if UNITY_EDITOR

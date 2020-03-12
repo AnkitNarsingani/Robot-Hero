@@ -2,9 +2,13 @@
 
 public class DoorScript : TileScript
 {
-    int noOfRobotsFinished = 0;
+    public bool IsUnlocked { get { return isUnlocked; } }
 
-    [SerializeField] public bool isUnlocked;
+    [SerializeField] protected bool isUnlocked;
+    [SerializeField] protected Color unlockedColor;
+    [SerializeField] protected Color lockedColor;
+
+    private int noOfRobotsFinished = 0;
 
     public override void Occupy(GameObject occupiedRobot)
     {
@@ -31,6 +35,16 @@ public class DoorScript : TileScript
             Debug.Log("Not Unlocked");
 #endif
         }
+    }
+
+    public void Unlock()
+    {
+        isUnlocked = true;
+    }
+
+    public void Lock()
+    {
+        isUnlocked = false;
     }
 
     void CheckWinCondition()

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class SwitchScript : TileScript
 {
@@ -8,8 +9,11 @@ public class SwitchScript : TileScript
     public override void Occupy(GameObject occupiedRobot)
     {
         isOccupied = true;
+        transform.GetChild(0).DOMoveY(0, 0.25f);
         if (door != null)
-            door.isUnlocked = true;
+        {
+            door.Unlock();
+        }
         else
         {
 #if UNITY_EDITOR
