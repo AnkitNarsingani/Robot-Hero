@@ -16,11 +16,12 @@ public class SwitchScriptInspector : GameTilesInspector
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
+        base.OnInspectorGUI();
         EditorGUILayout.Space();
 
         EditorGUILayout.PropertyField(doorEditor, new GUIContent("Door"));
 
-        base.OnInspectorGUI();  
+        
         serializedObject.ApplyModifiedProperties();
     }
 }
