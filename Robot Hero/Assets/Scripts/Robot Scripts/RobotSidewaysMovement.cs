@@ -56,7 +56,7 @@ public class RobotSidewaysMovement : Robot
         animator.SetFloat("Move", -x);
 
         CurrentGridPosition = tempGridPosition;
-        yield return new WaitForSeconds(playerFlap.length);
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
 
         Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);

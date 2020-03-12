@@ -14,7 +14,6 @@ public abstract class Robot : MonoBehaviour, IPushable
     [SerializeField] protected GameObject[] AccessableBlocks;
     [SerializeField] protected Material[] defaultMaterials;
     [SerializeField] protected UnityEvent playerMoveEvent;
-    [SerializeField] protected AnimationClip playerFlap;
 
     [HideInInspector] public GameObject currentTile;
 

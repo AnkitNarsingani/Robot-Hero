@@ -14,10 +14,14 @@ public class RobotAlternateMovement : Robot
 
         if (upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
             up = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
+
         if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
             down = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
+
+
         if (rightTempX >= 0 && rightTempX <= gridSystem.tileSetSize)
             right = gridSystem.tileGameObjects[rightTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
+
         if (leftTempX >= 0 && leftTempX <= gridSystem.tileSetSize)
             left = gridSystem.tileGameObjects[leftTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
 
@@ -87,5 +91,8 @@ public class RobotAlternateMovement : Robot
         tile.GetComponent<TileScript>().occupyAction(gameObject);
         currentTile = tile;
         GetAccessibleBlocks();
+
+        yield return new WaitForSeconds(0.7f);
+        isMoving = false;
     }
 }
