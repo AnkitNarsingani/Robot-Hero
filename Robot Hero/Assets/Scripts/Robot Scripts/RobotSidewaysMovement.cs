@@ -9,12 +9,12 @@ public class RobotSidewaysMovement : Robot
         int rightTempX = (int)CurrentGridPosition.x + 1;
 
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject right = null, left = null;
+        Transform right = null, left = null;
 
         if (rightTempX >= 0 && rightTempX <= gridSystem.tileSetSize)
-            right = gridSystem.tileGameObjects[rightTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
+            right = gridSystem.tileTransforms[rightTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
         if (leftTempX >= 0 && leftTempX <= gridSystem.tileSetSize)
-            left = gridSystem.tileGameObjects[leftTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
+            left = gridSystem.tileTransforms[leftTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
 
         if (right != null && right.GetComponent<TileScript>().canWalk)
         {
@@ -34,7 +34,7 @@ public class RobotSidewaysMovement : Robot
             AccessableBlocks[1] = null;
     }
 
-    public override System.Collections.IEnumerator Move(GameObject tile)
+    public override System.Collections.IEnumerator Move(Transform tile)
     {
         float x = 0;
         if (AccessableBlocks[0] == tile) x = 1;
@@ -59,7 +59,7 @@ public class RobotSidewaysMovement : Robot
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
 
-        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
+        Vector3 updatedTilePositon = new Vector3(tile.position.x, transform.position.y, tile.position.z);
 
         robotHead.parent = null;
         Vector3 updatedHeadPositon = new Vector3(robotHead.position.x + (x * 0.8f), robotHead.position.y, robotHead.position.z);

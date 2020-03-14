@@ -48,9 +48,9 @@ public class GridTilesInspector : Editor
             GridSystem gridSystem = FindObjectOfType<GridSystem>();
             newTile.transform.parent = gridSystem.transform;
             newTile.name = newTile.name + " [" + tileSelector.positionOnGrid.x + "] [" + tileSelector.positionOnGrid.y + "]";
-            gridSystem.tileGameObjects[(int)tileSelector.positionOnGrid.x + (int)tileSelector.positionOnGrid.y * gridSystem.tileSetSize] = newTile;
+            gridSystem.tileTransforms[(int)tileSelector.positionOnGrid.x + (int)tileSelector.positionOnGrid.y * gridSystem.tileSetSize] = newTile.transform;
             Undo.RegisterCreatedObjectUndo(newTile, "Object " + newTile.name);
-            Undo.DestroyObjectImmediate(tileSelector.gameObject);           
+            Undo.DestroyObjectImmediate(tileSelector.gameObject);
         }
         else
             Debug.Log("Prefab not assigned to: " + tileSelector.tileListScriptableObject.tilesList[index].name);

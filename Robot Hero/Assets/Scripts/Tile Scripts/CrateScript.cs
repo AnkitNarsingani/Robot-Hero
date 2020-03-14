@@ -6,13 +6,13 @@ public class CrateScript : MonoBehaviour, IPushable
 
     public Vector2 CurrentGridPosition { get; private set; }
 
-    public GameObject currentTile;
+    public Transform currentTile;
 
     void Start()
     {
         CurrentGridPosition = staringGridPosition;
 
-        currentTile = FindObjectOfType<GridSystem>().tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * FindObjectOfType<GridSystem>().tileSetSize];
+        currentTile = FindObjectOfType<GridSystem>().tileTransforms[(int)staringGridPosition.x + (int)staringGridPosition.y * FindObjectOfType<GridSystem>().tileSetSize];
 
         if (currentTile.GetComponent<TileScript>().occupyAction != null)
             currentTile.GetComponent<TileScript>().occupyAction(gameObject);
@@ -25,7 +25,7 @@ public class CrateScript : MonoBehaviour, IPushable
     {
         Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y + y);
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
+        Transform updatedTile = gridSystem.tileTransforms[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
         TileScript updatedTileScript = updatedTile.GetComponent<TileScript>();
         if (updatedTile != null && updatedTileScript.canWalk)
         {

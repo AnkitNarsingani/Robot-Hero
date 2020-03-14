@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
 
 public class TileEditor : EditorWindow
@@ -75,7 +76,8 @@ public class TileEditor : EditorWindow
     private void ResetTiles()
     {
         GridSystem gridSystem = gridGameObject.GetComponent<GridSystem>();
-        gridSystem.tileGameObjects = new GameObject[tileSetSize * tileSetSize];
+        gridSystem.tileTransforms = new List<Transform>(tileSetSize * tileSetSize);
+        for (int i = 0; i < tileSetSize * tileSetSize; i++) gridSystem.tileTransforms.Add(null);
         gridSystem.tileSetSize = tileSetSize;
         gridSystem.cellSize = cellSize;
 

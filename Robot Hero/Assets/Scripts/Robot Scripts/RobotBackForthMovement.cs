@@ -9,12 +9,12 @@ public class RobotBackForthMovement : Robot
         int downTempY = (int)CurrentGridPosition.y - 1;
 
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject up = null, down = null;
+        Transform up = null, down = null;
 
         if (upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
-            up = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
+            up = gridSystem.tileTransforms[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
         if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
-            down = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
+            down = gridSystem.tileTransforms[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
 
         if (up != null && up.GetComponent<TileScript>().canWalk)
         {
@@ -33,7 +33,7 @@ public class RobotBackForthMovement : Robot
             AccessableBlocks[1] = null;
     }
 
-    public override System.Collections.IEnumerator Move(GameObject tile)
+    public override System.Collections.IEnumerator Move(Transform tile)
     {
         float y = 0;
         if (AccessableBlocks[0] == tile) y = 1;
@@ -57,7 +57,7 @@ public class RobotBackForthMovement : Robot
         CurrentGridPosition = tempGridPosition;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
-        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
+        Vector3 updatedTilePositon = new Vector3(tile.position.x, transform.position.y, tile.position.z);
 
         robotHead.parent = null;
         Vector3 updatedHeadPositon = new Vector3(robotHead.position.x, robotHead.position.y, robotHead.position.z + (y * 0.8f));

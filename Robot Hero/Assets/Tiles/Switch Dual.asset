@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 7268797181270099909, guid: ee781f31d9222254b85d45f134eebe27,
     type: 3}
-  canWalk: 0
+  canWalk: 1

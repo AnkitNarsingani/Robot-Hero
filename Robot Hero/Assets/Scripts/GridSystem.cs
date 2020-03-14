@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 public class GridSystem : MonoBehaviour
 {
-    [Header("Do not change these values, to edit values use the Tile Editor window")]
 #if UNITY_EDITOR
     [ReadOnly]
 #endif
@@ -15,7 +15,7 @@ public class GridSystem : MonoBehaviour
 #endif
     public float cellSize;
 
-    public GameObject[] tileGameObjects;
+    public List<Transform> tileTransforms;
 }
 
 #if UNITY_EDITOR

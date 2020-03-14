@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(TileScript), true)]
@@ -35,11 +37,11 @@ public class GameTilesInspector : Editor
         TileSelector tileSelector = newTile.AddComponent<TileSelector>();
         tileSelector.tileListScriptableObject = Resources.Load("Tile List") as TileList;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        int index = System.Array.FindIndex(gridSystem.tileGameObjects, item => item == tileScript.gameObject);
+        int index = gridSystem.tileTransforms.FindIndex(item => item == tileScript.gameObject);
         if (index != -1)
         {
-            tileSelector.positionOnGrid.x = (int)index % gridSystem.tileSetSize;
-            tileSelector.positionOnGrid.y = (int)index / gridSystem.tileSetSize;
+            tileSelector.positionOnGrid.x = index % gridSystem.tileSetSize;
+            tileSelector.positionOnGrid.y = index / gridSystem.tileSetSize;
             newTile.name = "Tile [" + tileSelector.positionOnGrid.x + "] [" + tileSelector.positionOnGrid.y + "]";
         }
         DestroyImmediate(tileScript.gameObject);

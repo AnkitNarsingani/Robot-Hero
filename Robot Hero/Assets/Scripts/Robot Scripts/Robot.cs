@@ -11,11 +11,11 @@ public abstract class Robot : MonoBehaviour, IPushable
     [SerializeField] public Vector2 CurrentGridPosition { get; protected set; }
     [SerializeField] protected float maxInaccuracy = 1;
     [SerializeField] protected int noOfDirections = 2;
-    [SerializeField] protected GameObject[] AccessableBlocks;
+    [SerializeField] protected Transform[] AccessableBlocks;
     [SerializeField] protected Material[] defaultMaterials;
     [SerializeField] protected UnityEvent playerMoveEvent;
 
-    [HideInInspector] public GameObject currentTile;
+    [HideInInspector] public Transform currentTile;
 
     protected Animator animator;
     protected Transform robotHead;
@@ -30,11 +30,11 @@ public abstract class Robot : MonoBehaviour, IPushable
 
     protected abstract void GetAccessibleBlocks();
 
-    public abstract System.Collections.IEnumerator Move(GameObject tile);
+    public abstract System.Collections.IEnumerator Move(Transform tile);
 
     protected void Start()
     {
-        AccessableBlocks = new GameObject[noOfDirections];
+        AccessableBlocks = new Transform[noOfDirections];
         defaultMaterials = new Material[noOfDirections];
         CurrentGridPosition = staringGridPosition;
         if (pushables == null) pushables = FindAllPushables();
@@ -43,12 +43,12 @@ public abstract class Robot : MonoBehaviour, IPushable
         robotHead = transform.Find("Top");
         robotLegs = transform.Find("Bottom");
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        currentTile = gridSystem.tileGameObjects[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize];
+        currentTile = gridSystem.tileTransforms[(int)staringGridPosition.x + (int)staringGridPosition.y * gridSystem.tileSetSize];
 
         if (currentTile.GetComponent<TileScript>().occupyAction != null)
             currentTile.GetComponent<TileScript>().occupyAction(gameObject);
 
-        Vector3 startingTilePositon = currentTile.transform.position;
+        Vector3 startingTilePositon = currentTile.position;
         transform.position = new Vector3(startingTilePositon.x, transform.position.y, startingTilePositon.z);
         GetAccessibleBlocks();
     }
@@ -91,8 +91,8 @@ public abstract class Robot : MonoBehaviour, IPushable
                     if (touchStartPos != touchEndPos && touchStartPos != Vector2.zero)
                     {
                         float leastDistance = maxInaccuracy + 1;
-                        GameObject tileToMove = null;
-                        foreach (GameObject tile in AccessableBlocks)
+                        Transform tileToMove = null;
+                        foreach (Transform tile in AccessableBlocks)
                         {
                             if (tile != null)
                             {
@@ -150,7 +150,7 @@ public abstract class Robot : MonoBehaviour, IPushable
         }
     }
 
-    private float GetTileDistance(GameObject tile, Vector2 touchPosition)
+    private float GetTileDistance(Transform tile, Vector2 touchPosition)
     {
         Ray ray = Camera.main.ScreenPointToRay(touchPosition);
         Plane plane = new Plane(Vector3.up, transform.position);
@@ -158,7 +158,7 @@ public abstract class Robot : MonoBehaviour, IPushable
         if (plane.Raycast(ray, out distance))
         {
             Vector3 pos = ray.GetPoint(distance);
-            return Vector3.Distance(pos, tile.transform.position);
+            return Vector3.Distance(pos, tile.position);
         }
         return maxInaccuracy + 1;
     }
@@ -173,7 +173,7 @@ public abstract class Robot : MonoBehaviour, IPushable
     {
         Vector2 tempGridPosition = new Vector2(CurrentGridPosition.x + x, CurrentGridPosition.y + y);
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        GameObject updatedTile = gridSystem.tileGameObjects[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
+        Transform updatedTile = gridSystem.tileTransforms[(int)tempGridPosition.x + (int)tempGridPosition.y * gridSystem.tileSetSize] ?? null;
         TileScript updatedTileScript = updatedTile.GetComponent<TileScript>();
         if (updatedTile != null && updatedTileScript.canWalk)
         {

@@ -10,21 +10,21 @@ public class RobotAlternateMovement : Robot
         int leftTempX = (int)CurrentGridPosition.x - 2;
         int rightTempX = (int)CurrentGridPosition.x + 2;
 
-        GameObject up = null, down = null, left = null, right = null;
+        Transform up = null, down = null, left = null, right = null;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
 
         if (upTempY >= 0 && upTempY <= gridSystem.tileSetSize)
-            up = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
+            up = gridSystem.tileTransforms[(int)CurrentGridPosition.x + upTempY * gridSystem.tileSetSize];
 
         if (downTempY >= 0 && downTempY <= gridSystem.tileSetSize)
-            down = gridSystem.tileGameObjects[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
+            down = gridSystem.tileTransforms[(int)CurrentGridPosition.x + downTempY * gridSystem.tileSetSize];
 
 
         if (rightTempX >= 0 && rightTempX <= gridSystem.tileSetSize)
-            right = gridSystem.tileGameObjects[rightTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
+            right = gridSystem.tileTransforms[rightTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
 
         if (leftTempX >= 0 && leftTempX <= gridSystem.tileSetSize)
-            left = gridSystem.tileGameObjects[leftTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
+            left = gridSystem.tileTransforms[leftTempX + (int)CurrentGridPosition.y * gridSystem.tileSetSize];
 
 
         if (up != null && up.GetComponent<TileScript>().canWalk)
@@ -61,7 +61,7 @@ public class RobotAlternateMovement : Robot
             AccessableBlocks[3] = null;
     }
 
-    public override System.Collections.IEnumerator Move(GameObject tile)
+    public override System.Collections.IEnumerator Move(Transform tile)
     {
         float y = 0, x = 0;
 
@@ -87,7 +87,7 @@ public class RobotAlternateMovement : Robot
 
         CurrentGridPosition = tempGridPosition;
 
-        Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
+        Vector3 updatedTilePositon = new Vector3(tile.position.x, transform.position.y, tile.position.z);
         transform.DOLookAt(updatedTilePositon, 0.25f, AxisConstraint.Y);
         yield return new WaitForSeconds(0.25f);
 
