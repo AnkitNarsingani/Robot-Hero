@@ -84,12 +84,14 @@ public class RobotAlternateMovement : Robot
                 }
             }
         }
-        yield return null;
+
         CurrentGridPosition = tempGridPosition;
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
 
         Vector3 updatedTilePositon = new Vector3(tile.transform.position.x, transform.position.y, tile.transform.position.z);
-        transform.DOJump(updatedTilePositon, 1f, 1, 0.25f);
+        transform.DOLookAt(updatedTilePositon, 0.25f, AxisConstraint.Y);
+        yield return new WaitForSeconds(0.25f);
+
+        transform.DOJump(updatedTilePositon, 0.5f, 1, 0.5f);
         yield return new WaitForSeconds(0.25f);
 
         currentTile.GetComponent<TileScript>().vacateAction(gameObject);
