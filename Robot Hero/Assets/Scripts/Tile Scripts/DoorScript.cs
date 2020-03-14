@@ -44,9 +44,12 @@ public class DoorScript : TileScript
 
     public void Unlock()
     {
-        isUnlocked = true;
-        exitSignMeshRenderer.material = unlockedMaterial;
-        doorTransform.DORotate(new Vector3(0, -90, 0), 0.5f, RotateMode.LocalAxisAdd);
+        if (!isUnlocked)
+        {
+            isUnlocked = true;
+            exitSignMeshRenderer.material = unlockedMaterial;
+            doorTransform.DORotate(new Vector3(0, -90, 0), 0.5f, RotateMode.LocalAxisAdd);
+        }
     }
 
     public void Lock()

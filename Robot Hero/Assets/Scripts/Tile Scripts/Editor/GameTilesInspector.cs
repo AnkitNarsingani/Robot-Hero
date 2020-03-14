@@ -37,7 +37,7 @@ public class GameTilesInspector : Editor
         TileSelector tileSelector = newTile.AddComponent<TileSelector>();
         tileSelector.tileListScriptableObject = Resources.Load("Tile List") as TileList;
         GridSystem gridSystem = FindObjectOfType<GridSystem>();
-        int index = gridSystem.tileTransforms.FindIndex(item => item == tileScript.gameObject);
+        int index = gridSystem.tileTransforms.FindIndex(item => item == tileScript.transform);
         if (index != -1)
         {
             tileSelector.positionOnGrid.x = index % gridSystem.tileSetSize;
