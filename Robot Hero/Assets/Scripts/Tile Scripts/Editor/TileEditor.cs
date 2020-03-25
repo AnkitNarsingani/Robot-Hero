@@ -26,13 +26,13 @@ public class TileEditor : EditorWindow
         {
             gridGameObject = FindObjectOfType<GridSystem>().gameObject;
         }
-        catch(System.NullReferenceException)
+        catch (System.NullReferenceException)
         {
-            Debug.Log("Could not find Grid System in the current scene, created a new Grid System");
+            Debug.Log("Could not find Grid System, created a new Grid System");
             gridGameObject = new GameObject("Grid System");
             gridGameObject.AddComponent<GridSystem>();
         }
-        
+
         tileList = Resources.Load("Tile List") as TileList;
     }
 
@@ -75,6 +75,21 @@ public class TileEditor : EditorWindow
 
     private void ResetTiles()
     {
+        if (gridGameObject == null)
+        {
+            try
+            {
+                gridGameObject = FindObjectOfType<GridSystem>().gameObject;
+            }
+            catch (System.NullReferenceException)
+            {
+                Debug.Log("Could not find Grid System, created a new Grid System");
+                gridGameObject = new GameObject("Grid System");
+                gridGameObject.AddComponent<GridSystem>();
+            }
+        }
+
+
         GridSystem gridSystem = gridGameObject.GetComponent<GridSystem>();
         gridSystem.tileTransforms = new List<Transform>(tileSetSize * tileSetSize);
         for (int i = 0; i < tileSetSize * tileSetSize; i++) gridSystem.tileTransforms.Add(null);
@@ -98,7 +113,7 @@ public class TileEditor : EditorWindow
                 tileSelector.positionOnGrid = new Vector2(i, j);
             }
         }
-  
+
         gridSystem.tileSetSize = tileSetSize;
         gridSystem.cellSize = cellSize;
     }
