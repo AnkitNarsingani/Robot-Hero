@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ab3962ac808374142ba62d89ca40b35d
+guid: 5ec6be5024698944a982ba1d01eb1aab
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -150,7 +150,6 @@ ModelImporter:
     4300044: polySurface555
     4300046: polySurface558
     4300048: polySurface562
-    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 0
@@ -207,10 +206,10 @@ ModelImporter:
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   importAnimation: 0
